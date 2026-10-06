@@ -2,7 +2,7 @@
 
 Owner Stripe account is **not created yet**. When it is ready, create the Payment Links below and paste each URL into `STRIPE_LINKS` in `index.html` (near the top of the `<script>` block).
 
-Also set `ORDER_EMAIL` in that same config block to the owner’s real order inbox (do not invent one). Until then it stays empty and the checkout button uses the “coming soon” path (text/email order details to the phone).
+`ORDER_EMAIL` in that same config block is set to `support@littlecraftdesign.com`. While a product’s Payment Link is empty, the checkout button reads “Send order request by email” and opens a `mailto:` to that address with the full order summary.
 
 Live site: https://alanmeireles.github.io/littlecraftdesign/
 
@@ -57,7 +57,7 @@ Paste each resulting URL into `STRIPE_LINKS['…']` with the matching key.
 In `/workspace/lcd-pages/index.html` (and the synced copies):
 
 ```js
-var ORDER_EMAIL = ''; // TODO: set owner order email when known
+var ORDER_EMAIL = 'support@littlecraftdesign.com';
 var STRIPE_LINKS = {
   'photo-birthday-standard': 'https://buy.stripe.com/...',
   'photo-birthday-large': '',
@@ -70,11 +70,7 @@ When a key’s URL is non-empty, checkout opens that link with:
 - `?prefilled_email=` (customer email from the form)
 - `&client_reference_id=` (generated order reference)
 
-When a key is empty, the button label becomes:
-
-> Online payment coming soon — we'll text you a payment link
-
-…and the order details are sent via `mailto:` to `ORDER_EMAIL` (if set) or copied for the customer to text to **(385) 208-1587**.
+When a key is empty, the button label becomes **“Send order request by email”** and the order details are sent via `mailto:` to `ORDER_EMAIL` (if `ORDER_EMAIL` were blank, the summary is copied for the customer to text to **(385) 208-1587**).
 
 ---
 
