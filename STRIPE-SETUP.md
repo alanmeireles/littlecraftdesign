@@ -94,7 +94,7 @@ When a key is empty, the button label becomes **“Send order request by email�
 ## Checklist after creating links
 
 - [ ] All 14 URLs pasted into `STRIPE_LINKS`
-- [ ] `ORDER_EMAIL` set to the real owner inbox
+- [x] `ORDER_EMAIL` set to support@littlecraftdesign.com
 - [ ] After-payment redirect points to `#thank-you`
 - [ ] Test one link end-to-end (Shop → Checkout → Stripe → thank-you)
 - [ ] Commit and push to `main` to deploy on GitHub Pages
