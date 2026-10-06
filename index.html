@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Craft Design — Custom Birthday Cake Toppers</title>
+<style>
+  :root {
+    --blush: #f7e6e9;
+    --blush-deep: #e8b4bc;
+    --blush-mid: #f0d0d6;
+    --cream: #fdf8f5;
+    --ivory: #fffaf7;
+    --gold: #c9a227;
+    --gold-light: #e8d48b;
+    --gold-dark: #a8841a;
+    --rose: #c97b84;
+    --rose-deep: #a85a64;
+    --text: #3d2c2e;
+    --text-soft: #6b5558;
+    --text-muted: #9a8084;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(61, 44, 46, 0.08);
+    --shadow-lg: 0 12px 40px rgba(61, 44, 46, 0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-display: Georgia, "Times New Roman", Times, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: var(--rose-deep); text-decoration: none; }
+  a:hover { color: var(--gold-dark); }
+
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 250, 247, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--blush-mid);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0.85rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .logo { display: flex; align-items: center; gap: 0.65rem; color: var(--text); text-decoration: none; }
+  .logo-mark { width: 40px; height: 40px; flex-shrink: 0; }
+  .logo-text {
+    font-family: var(--font-display); font-size: 1.15rem; font-weight: 600;
+    letter-spacing: 0.02em; line-height: 1.2;
+  }
+  .logo-text span {
+    display: block; font-size: 0.65rem; font-family: var(--font); font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark);
+  }
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+  .nav-links a {
+    display: block; padding: 0.5rem 0.85rem; font-size: 0.9rem; font-weight: 500;
+    color: var(--text-soft); border-radius: 8px; transition: background 0.2s, color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--rose-deep); background: var(--blush); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+    color: var(--white) !important; font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(201, 162, 39, 0.35);
+  }
+  .nav-cta:hover { filter: brightness(1.08); color: var(--white) !important; }
+  .menu-toggle {
+    display: none; background: none; border: 1.5px solid var(--blush-deep);
+    border-radius: 8px; padding: 0.4rem 0.55rem; cursor: pointer; color: var(--text);
+  }
+  .menu-toggle svg { width: 22px; height: 22px; }
+
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.35s ease; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  .section { padding: 4rem 0; }
+  .section-alt { background: linear-gradient(180deg, var(--blush) 0%, var(--cream) 100%); }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600; text-align: center; color: var(--text); margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    text-align: center; color: var(--text-soft); max-width: 560px;
+    margin: 0 auto 2.5rem; font-size: 1.05rem;
+  }
+  .gold-line {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light));
+    margin: 0 auto 1.25rem; border-radius: 2px;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.85rem 1.75rem; font-size: 0.95rem; font-weight: 600;
+    border-radius: 50px; border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    text-decoration: none; font-family: var(--font);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    color: var(--white); box-shadow: 0 4px 16px rgba(201, 162, 39, 0.4);
+  }
+  .btn-primary:hover { filter: brightness(1.06); color: var(--white); }
+  .btn-secondary {
+    background: var(--white); color: var(--rose-deep);
+    border: 1.5px solid var(--blush-deep); box-shadow: var(--shadow);
+  }
+  .btn-secondary:hover { background: var(--blush); color: var(--rose-deep); }
+  .btn-sm { padding: 0.55rem 1.2rem; font-size: 0.85rem; }
+
+  .hero {
+    position: relative; overflow: hidden; padding: 4.5rem 0 3.5rem;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(232, 180, 188, 0.45) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(232, 212, 139, 0.3) 0%, transparent 45%),
+      linear-gradient(165deg, var(--ivory) 0%, var(--blush) 55%, var(--cream) 100%);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--white); border: 1px solid var(--gold-light); color: var(--gold-dark);
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.35rem 0.85rem; border-radius: 50px; margin-bottom: 1.25rem; box-shadow: var(--shadow);
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 600; line-height: 1.2; color: var(--text); margin-bottom: 1rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--rose-deep); }
+  .hero-lead { font-size: 1.1rem; color: var(--text-soft); margin-bottom: 2rem; max-width: 440px; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+  .hero-visual {
+    position: relative; display: flex; justify-content: center; align-items: center; min-height: 360px;
+  }
+  .hero-toppers { position: relative; width: 320px; height: 360px; }
+  .floating-topper {
+    position: absolute; filter: drop-shadow(0 8px 20px rgba(61, 44, 46, 0.15));
+    animation: float 5s ease-in-out infinite;
+  }
+  .floating-topper:nth-child(1) { top: 10px; left: 40px; animation-delay: 0s; }
+  .floating-topper:nth-child(2) { top: 80px; right: 10px; animation-delay: 1.2s; }
+  .floating-topper:nth-child(3) { bottom: 20px; left: 80px; animation-delay: 2.4s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+  }
+  .glitter-dots { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .glitter-dots span {
+    position: absolute; width: 4px; height: 4px; background: var(--gold);
+    border-radius: 50%; opacity: 0.5;
+  }
+
+  .occasions-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+  .occasion-card {
+    background: var(--white); border-radius: var(--radius); padding: 1.5rem 1rem;
+    text-align: center; box-shadow: var(--shadow); border: 1px solid transparent;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; cursor: pointer;
+  }
+  .occasion-card:hover {
+    transform: translateY(-4px); border-color: var(--gold-light); box-shadow: var(--shadow-lg);
+  }
+  .occasion-icon { width: 56px; height: 56px; margin: 0 auto 0.85rem; }
+  .occasion-card h3 { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .benefit-card {
+    background: var(--white); border-radius: var(--radius); padding: 2rem 1.5rem;
+    text-align: center; box-shadow: var(--shadow); border-top: 3px solid var(--gold);
+  }
+  .benefit-icon { width: 52px; height: 52px; margin: 0 auto 1rem; }
+  .benefit-card h3 { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .benefit-card p { font-size: 0.92rem; color: var(--text-soft); }
+
+  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .testimonial {
+    background: var(--white); border-radius: var(--radius); padding: 1.5rem;
+    box-shadow: var(--shadow); position: relative;
+  }
+  .sample-tag {
+    display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--gold-dark);
+    background: linear-gradient(135deg, #f5edd0, #f0e4b0);
+    padding: 0.2rem 0.55rem; border-radius: 4px; margin-bottom: 0.75rem;
+  }
+  .testimonial p { font-style: italic; color: var(--text-soft); font-size: 0.95rem; margin-bottom: 1rem; }
+  .testimonial cite { font-style: normal; font-size: 0.85rem; font-weight: 600; color: var(--text); }
+  .stars { display: flex; gap: 2px; margin-bottom: 0.65rem; }
+  .stars svg { width: 14px; height: 14px; }
+
+  .filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
+  .filter-btn {
+    padding: 0.5rem 1.15rem; border-radius: 50px; border: 1.5px solid var(--blush-deep);
+    background: var(--white); color: var(--text-soft); font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; font-family: var(--font); transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    border-color: var(--gold); color: var(--white);
+  }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .gallery-card {
+    background: var(--white); border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .gallery-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .gallery-card.hidden { display: none; }
+  .gallery-preview {
+    aspect-ratio: 4 / 5; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .gallery-preview.photo { background: #f3efec; }
+  .gallery-preview.photo img {
+    position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+    object-fit: cover; object-position: center 40%;
+  }
+  .gallery-preview .sample-label {
+    position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2;
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold-dark); background: rgba(255,255,255,0.72);
+    border: 1px solid rgba(201,162,39,0.35); border-radius: 50px; padding: 0.18rem 0.55rem;
+  }
+  .gallery-info .credit {
+    font-size: 0.72rem; color: var(--text-muted); margin-top: 0.6rem; padding-top: 0.55rem;
+    border-top: 1px dashed var(--blush-mid);
+  }
+  .gallery-info .credit a { color: var(--gold-dark); font-weight: 600; }
+  .gallery-info .credit a:hover { color: var(--rose-deep); }
+  .gallery-preview.wedding { background: linear-gradient(145deg, #fdf6f8, #f0dce2); }
+  .gallery-preview.birthday { background: linear-gradient(145deg, #fef9f0, #f5e4c8); }
+  .gallery-preview.graduation { background: linear-gradient(145deg, #f0f4fa, #d4e0f0); }
+  .gallery-preview.babyshower { background: linear-gradient(145deg, #f5f0fa, #e4d4f0); }
+  .gallery-preview.party { background: linear-gradient(145deg, #f0faf5, #d0eadc); }
+  .gallery-info { padding: 1.15rem 1.25rem; }
+  .gallery-info .tag {
+    display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--rose); background: var(--blush);
+    padding: 0.2rem 0.55rem; border-radius: 4px; margin-bottom: 0.4rem;
+  }
+  .gallery-info h3 { font-size: 1rem; font-weight: 600; }
+  .gallery-info p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+  .steps {
+    display: flex; flex-direction: column; gap: 0; max-width: 720px;
+    margin: 0 auto; position: relative;
+  }
+  .steps::before {
+    content: ''; position: absolute; left: 27px; top: 40px; bottom: 40px; width: 2px;
+    background: linear-gradient(180deg, var(--gold-light), var(--blush-deep), var(--gold-light));
+  }
+  .step { display: flex; gap: 1.5rem; padding: 1.25rem 0; position: relative; }
+  .step-num {
+    width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: var(--white); font-family: var(--font-display); font-size: 1.35rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(201, 162, 39, 0.35); z-index: 1;
+  }
+  .step-body {
+    background: var(--white); border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow); flex: 1;
+  }
+  .step-body h3 { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 0.35rem; }
+  .step-body p { font-size: 0.95rem; color: var(--text-soft); }
+  .turnaround-note {
+    max-width: 720px; margin: 2.5rem auto 0;
+    background: linear-gradient(135deg, #fdf6e8, #f8edd4);
+    border: 1px solid var(--gold-light); border-radius: var(--radius);
+    padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .turnaround-note svg { width: 28px; height: 28px; flex-shrink: 0; margin-top: 2px; }
+  .turnaround-note h4 { font-size: 1rem; margin-bottom: 0.35rem; }
+  .turnaround-note p { font-size: 0.9rem; color: var(--text-soft); }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; }
+  .price-card {
+    background: var(--white); border-radius: var(--radius); padding: 2rem 1.5rem;
+    box-shadow: var(--shadow); border: 1.5px solid var(--blush-mid);
+    display: flex; flex-direction: column; position: relative;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .price-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .price-card.featured {
+    border-color: var(--gold); box-shadow: 0 8px 32px rgba(201, 162, 39, 0.2);
+  }
+  .price-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--white); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 50px; white-space: nowrap;
+  }
+  .price-tier { font-family: var(--font-display); font-size: 1.4rem; text-align: center; margin-bottom: 0.35rem; }
+  .price-amount { text-align: center; font-size: 2rem; font-weight: 700; color: var(--rose-deep); margin-bottom: 0.25rem; }
+  .price-amount span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+  .price-desc {
+    text-align: center; font-size: 0.88rem; color: var(--text-soft);
+    margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--blush);
+  }
+  .price-features { list-style: none; flex: 1; margin-bottom: 1.5rem; }
+  .price-features li {
+    display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem;
+    color: var(--text-soft); padding: 0.4rem 0;
+  }
+  .price-features li svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
+  .price-card .btn { width: 100%; }
+  .addons {
+    margin-top: 3rem; background: var(--white); border-radius: var(--radius);
+    padding: 2rem; box-shadow: var(--shadow);
+  }
+  .addons h3 { font-family: var(--font-display); font-size: 1.25rem; text-align: center; margin-bottom: 1.25rem; }
+  .addons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .addon-item { text-align: center; padding: 1rem; background: var(--blush); border-radius: var(--radius-sm); }
+  .addon-item strong { display: block; font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .addon-item span { font-size: 0.85rem; color: var(--text-soft); }
+
+  .faq { margin-top: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+  .faq h3 { font-family: var(--font-display); font-size: 1.35rem; text-align: center; margin-bottom: 1.5rem; }
+  .faq-item {
+    background: var(--white); border-radius: var(--radius-sm); margin-bottom: 0.75rem;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .faq-q {
+    width: 100%; text-align: left; padding: 1rem 1.25rem; background: none; border: none;
+    font-family: var(--font); font-size: 0.95rem; font-weight: 600; color: var(--text);
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  }
+  .faq-q svg { width: 18px; height: 18px; transition: transform 0.25s; flex-shrink: 0; color: var(--gold-dark); }
+  .faq-item.open .faq-q svg { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 1.25rem 1.15rem; font-size: 0.9rem; color: var(--text-soft); }
+  .faq-item.open .faq-a { display: block; }
+
+  .order-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: start; }
+  .form-card { background: var(--white); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); }
+  .form-card h2 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.35rem; }
+  .form-card > p { color: var(--text-soft); font-size: 0.95rem; margin-bottom: 1.75rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1.15rem; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+  .form-group label .req { color: var(--rose); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.7rem 0.9rem; border: 1.5px solid var(--blush-mid);
+    border-radius: var(--radius-sm); font-family: var(--font); font-size: 0.95rem;
+    color: var(--text); background: var(--ivory);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .upload-zone {
+    border: 2px dashed var(--blush-deep); border-radius: var(--radius-sm);
+    padding: 1.75rem; text-align: center; background: var(--blush); cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .upload-zone:hover { border-color: var(--gold); background: #fdf6e8; }
+  .upload-zone svg { width: 36px; height: 36px; margin: 0 auto 0.65rem; color: var(--gold-dark); }
+  .upload-zone p { font-size: 0.9rem; color: var(--text-soft); }
+  .upload-zone small { font-size: 0.75rem; color: var(--text-muted); }
+  .radio-group { display: flex; gap: 1rem; }
+  .radio-option {
+    flex: 1; display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1rem; border: 1.5px solid var(--blush-mid);
+    border-radius: var(--radius-sm); cursor: pointer; background: var(--ivory);
+    transition: border-color 0.2s;
+  }
+  .radio-option:has(input:checked) { border-color: var(--gold); background: #fdf6e8; }
+  .radio-option input { accent-color: var(--gold-dark); }
+  .form-submit { margin-top: 0.5rem; }
+  .mockup-toast {
+    display: none; margin-top: 1rem; padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, #e8f5e9, #d4edda);
+    border: 1px solid #a8d5b0; border-radius: var(--radius-sm);
+    color: #2e5a36; font-size: 0.9rem; font-weight: 500;
+  }
+  .mockup-toast.show { display: block; animation: fadeIn 0.3s ease; }
+
+  .contact-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+  .contact-card { background: var(--white); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+  .contact-card h3 { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 1rem; }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.85rem;
+    font-size: 0.9rem; color: var(--text-soft);
+  }
+  .contact-item:last-child { margin-bottom: 0; }
+  .contact-item svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--gold-dark); margin-top: 1px; }
+  .contact-item strong { display: block; color: var(--text); font-size: 0.85rem; }
+  .social-links { display: flex; flex-direction: column; gap: 0.65rem; }
+  .social-link {
+    display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem;
+    background: var(--blush); border-radius: var(--radius-sm); color: var(--text);
+    font-size: 0.9rem; font-weight: 500; transition: background 0.2s;
+  }
+  .social-link:hover { background: var(--blush-mid); color: var(--text); }
+  .social-link svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .social-link .handle { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+
+  .site-footer {
+    background: var(--text); color: rgba(255,255,255,0.75);
+    padding: 3rem 0 1.5rem; margin-top: 2rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+  .footer-brand .logo-text { color: var(--white); margin-bottom: 0.75rem; }
+  .footer-brand .logo-text span { color: var(--gold-light); }
+  .footer-brand p { font-size: 0.9rem; max-width: 300px; line-height: 1.6; }
+  .footer-col h4 {
+    color: var(--white); font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.5rem; }
+  .footer-col a { color: rgba(255,255,255,0.65); font-size: 0.9rem; }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.25rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 0.75rem; font-size: 0.8rem;
+  }
+  .mockup-owner-note {
+    background: rgba(201, 162, 39, 0.15); border: 1px solid rgba(201, 162, 39, 0.3);
+    color: var(--gold-light); font-size: 0.75rem; padding: 0.35rem 0.75rem; border-radius: 6px;
+  }
+  .page-hero {
+    padding: 3rem 0 2rem; text-align: center;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(232, 180, 188, 0.4) 0%, transparent 60%),
+      linear-gradient(180deg, var(--blush) 0%, var(--cream) 100%);
+  }
+  .page-hero h1 {
+    font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin-bottom: 0.5rem;
+  }
+  .page-hero p { color: var(--text-soft); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+    .hero-lead { margin-left: auto; margin-right: auto; }
+    .hero-ctas { justify-content: center; }
+    .hero-visual { min-height: 280px; }
+    .hero-toppers { width: 260px; height: 280px; }
+    .occasions-grid { grid-template-columns: repeat(3, 1fr); }
+    .benefits-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    .testimonials { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+    .addons-grid { grid-template-columns: repeat(2, 1fr); }
+    .order-layout { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; background: var(--ivory); border-bottom: 1px solid var(--blush-mid);
+      padding: 0.75rem; box-shadow: var(--shadow-lg);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { width: 100%; text-align: center; padding: 0.75rem; }
+    .menu-toggle { display: flex; }
+    .occasions-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .addons-grid { grid-template-columns: 1fr; }
+    .radio-group { flex-direction: column; }
+    .section { padding: 3rem 0; }
+    .floating-topper:nth-child(3) { display: none; }
+  }
+
+  .gallery-preview.kids { background: linear-gradient(145deg, #fef9f0, #f5e4c8); }
+  .gallery-preview.milestone { background: linear-gradient(145deg, #fdf6f8, #f0dce2); }
+  .gallery-preview.first { background: linear-gradient(145deg, #fff8f0, #ffe8d0); }
+  .gallery-preview.character { background: linear-gradient(145deg, #f0f4fa, #d4e0f0); }
+  .gallery-preview.cupcake { background: linear-gradient(145deg, #f5f0fa, #e4d4f0); }
+  .gallery-preview .marble-bg {
+    position: absolute; inset: 0; opacity: 0.35; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(180,180,180,0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 60%, rgba(160,160,160,0.2) 0%, transparent 40%),
+      radial-gradient(ellipse at 40% 80%, rgba(200,200,200,0.15) 0%, transparent 45%),
+      linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 40%, #ddd 60%, #f0f0f0 100%);
+  }
+  .gallery-preview > svg { position: relative; z-index: 1; width: 58%; height: auto; }
+  .pt-note {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.85rem; color: var(--gold-dark); font-weight: 500;
+    background: linear-gradient(135deg, #fdf6e8, #f7e6e9);
+    border: 1px solid var(--gold-light); border-radius: 50px;
+    padding: 0.4rem 0.9rem; margin-top: 0.75rem;
+  }
+  /* Home: occasion tiles with real photos */
+  .occasions-grid .occasion-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .occasion-photo {
+    aspect-ratio: 4 / 5; position: relative; overflow: hidden;
+    border-bottom: 2px solid var(--gold-light);
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(180,180,180,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 65%, rgba(160,160,160,0.14) 0%, transparent 42%),
+      linear-gradient(135deg, #f6f2ef 0%, #fdfaf8 40%, #ece7e4 62%, #f8f4f1 100%);
+  }
+  .occasion-photo img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center 40%; transition: transform 0.4s;
+  }
+  .occasion-card:hover .occasion-photo img { transform: scale(1.04); }
+  .occasion-photo.no-photo { display: flex; align-items: center; justify-content: center; }
+  .occasion-photo.no-photo .occasion-icon { width: 96px; height: 96px; margin: 0; position: relative; }
+  .occasion-body { padding: 0.85rem 0.85rem 1rem; }
+  .occasion-card h3 { font-size: 0.95rem; }
+  .occasion-card p { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; line-height: 1.4; }
+  .occasions-credit {
+    text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 1.25rem;
+  }
+  .occasions-credit a { color: var(--gold-dark); font-weight: 600; }
+  .occasions-credit a:hover { color: var(--rose-deep); }
+  @media (max-width: 640px) {
+    .occasions-grid { gap: 0.85rem; }
+    .occasion-card.wide-sm { grid-column: 1 / -1; }
+    .occasion-card.wide-sm .occasion-photo { aspect-ratio: 5 / 2; }
+    .occasion-card.wide-sm .occasion-photo .occasion-icon { width: 76px; height: 76px; }
+    .occasion-body { padding: 0.75rem 0.7rem 0.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="#home" class="logo" data-nav="home">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" fill="#f7e6e9" stroke="#c9a227" stroke-width="1.5"/>
+        <path d="M20 8c.5 4 2 7 5 9-3 2-4.5 5-5 9-.5-4-2-7-5-9 3-2 4.5-5 5-9z" fill="#c9a227"/>
+        <circle cx="20" cy="20" r="3" fill="#e8b4bc"/>
+        <circle cx="12" cy="12" r="1.2" fill="#e8d48b" opacity="0.8"/>
+        <circle cx="28" cy="14" r="1" fill="#e8d48b" opacity="0.7"/>
+        <circle cx="14" cy="28" r="0.9" fill="#e8d48b" opacity="0.6"/>
+      </svg>
+      <div class="logo-text">
+        Little Craft Design
+        <span>Custom Party Crafts</span>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" data-nav="home" class="active">Home</a></li>
+      <li><a href="#gallery" data-nav="gallery">Gallery</a></li>
+      <li><a href="#how-it-works" data-nav="how-it-works">How It Works</a></li>
+      <li><a href="#pricing" data-nav="pricing">Pricing</a></li>
+      <li><a href="#order" data-nav="order" class="nav-cta">Order</a></li>
+    </ul>
+  </div>
+</header>
+
+<section id="page-home" class="page active">
+  <div class="hero">
+    <div class="glitter-dots" aria-hidden="true">
+      <span style="top:12%;left:8%"></span>
+      <span style="top:25%;left:90%;width:3px;height:3px"></span>
+      <span style="top:60%;left:5%;width:5px;height:5px;opacity:0.3"></span>
+      <span style="top:80%;left:85%;width:3px;height:3px"></span>
+      <span style="top:40%;left:70%;width:2px;height:2px"></span>
+    </div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#c9a227"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4l-6.4 4.8 2.4-7.2-6-4.8h7.6z"/></svg>
+            Handcrafted made with love
+          </div>
+          <h1>Custom <em>gold glitter</em> cake toppers for every birthday</h1>
+          <p class="hero-lead">Personalized name + age toppers, character themes, first-birthday sets, and milestone designs — photo-edited in Photoshop, printed on glossy glitter cardstock, and Cricut-cut for kids' birthdays and celebrations.</p>
+          <div class="hero-ctas">
+            <a href="#order" class="btn btn-primary" data-nav="order">Start an Order</a>
+            <a href="#gallery" class="btn btn-secondary" data-nav="gallery">See Gallery</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-toppers">
+            <div class="floating-topper" style="width:140px">
+              <svg viewBox="0 0 140 160" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f7e6e9"/>
+                    <stop offset="100%" stop-color="#e8b4bc"/>
+                  </linearGradient>
+                  <linearGradient id="glitter1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e8d48b" stop-opacity="0.6"/>
+                    <stop offset="50%" stop-color="#c9a227" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#e8d48b" stop-opacity="0.5"/>
+                  </linearGradient>
+                </defs>
+                <ellipse cx="70" cy="70" rx="55" ry="60" fill="url(#g1)" stroke="#c9a227" stroke-width="2"/>
+                <ellipse cx="70" cy="70" rx="55" ry="60" fill="url(#glitter1)"/>
+                <circle cx="55" cy="55" r="18" fill="#f5d0c8"/>
+                <circle cx="85" cy="55" r="18" fill="#f0c8c0"/>
+                <ellipse cx="55" cy="52" rx="10" ry="12" fill="#e8a898"/>
+                <ellipse cx="85" cy="52" rx="10" ry="12" fill="#e0a090"/>
+                <path d="M45 85 Q70 105 95 85" fill="none" stroke="#c97b84" stroke-width="1.5"/>
+                <text x="70" y="125" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#a8841a" font-weight="700">EMMA · 5</text>
+                <circle cx="40" cy="40" r="1.5" fill="#c9a227"/>
+                <circle cx="100" cy="45" r="1.2" fill="#e8d48b"/>
+                <circle cx="50" cy="95" r="1" fill="#c9a227"/>
+                <rect x="68" y="130" width="4" height="25" rx="1" fill="#c9a227"/>
+              </svg>
+            </div>
+            <div class="floating-topper" style="width:120px">
+              <svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fef9f0"/>
+                    <stop offset="100%" stop-color="#f5d89a"/>
+                  </linearGradient>
+                </defs>
+                <rect x="15" y="10" width="90" height="100" rx="12" fill="url(#g2)" stroke="#c9a227" stroke-width="2"/>
+                <circle cx="60" cy="50" r="22" fill="#f5d0c8"/>
+                <ellipse cx="60" cy="47" rx="12" ry="14" fill="#e8a898"/>
+                <path d="M40 80 Q60 95 80 80" fill="none" stroke="#c97b84" stroke-width="1.5"/>
+                <text x="60" y="98" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a8841a" font-weight="600">Happy 5th!</text>
+                <circle cx="30" cy="25" r="1.5" fill="#c9a227"/>
+                <circle cx="90" cy="30" r="1.2" fill="#e8d48b"/>
+                <circle cx="85" cy="90" r="1" fill="#c9a227"/>
+                <rect x="58" y="110" width="4" height="30" rx="1" fill="#c9a227"/>
+              </svg>
+            </div>
+            <div class="floating-topper" style="width:110px">
+              <svg viewBox="0 0 110 140" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e8f0fa"/>
+                    <stop offset="100%" stop-color="#b8cce0"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="55" cy="55" r="45" fill="url(#g3)" stroke="#c9a227" stroke-width="2"/>
+                <circle cx="55" cy="52" r="18" fill="#f5d0c8"/>
+                <ellipse cx="55" cy="49" rx="10" ry="12" fill="#e8a898"/>
+                <polygon points="35,38 55,28 75,38 55,45" fill="#3d2c2e"/>
+                <rect x="52" y="28" width="3" height="12" fill="#c9a227"/>
+                <circle cx="53.5" cy="28" r="2.5" fill="#c9a227"/>
+                <text x="55" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#3d2c2e" font-weight="600">Class of '26</text>
+                <circle cx="30" cy="35" r="1.2" fill="#c9a227"/>
+                <circle cx="80" cy="70" r="1" fill="#e8d48b"/>
+                <rect x="53" y="100" width="4" height="28" rx="1" fill="#c9a227"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="section-title">Made for Birthdays &amp; Celebrations</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Kids' birthdays, milestones, first birthdays, and themed parties — plus weddings &amp; events.</p>
+      <div class="occasions-grid">
+        <div class="occasion-card" data-nav="gallery" data-filter="kids" role="button" tabindex="0">
+          <div class="occasion-photo"><img src="images/topper-2.jpg" width="480" height="640" loading="lazy" decoding="async"
+               alt="Green, yellow and blue cake with a Brazil flag topper, soccer-ball toppers and a blue and gold age topper"></div>
+          <div class="occasion-body"><h3>Kids' Birthdays</h3><p>Name + age, party colors</p></div>
+        </div>
+        <div class="occasion-card" data-nav="gallery" data-filter="milestone" role="button" tabindex="0">
+          <div class="occasion-photo"><img src="images/topper-1.jpg" width="480" height="640" loading="lazy" decoding="async"
+               alt="Green-topped layer cake with a Brazil flag, soccer-ball toppers and a blue and gold '15 Anos' topper"></div>
+          <div class="occasion-body"><h3>Milestones</h3><p>15 Anos, Sweet 16 &amp; more</p></div>
+        </div>
+        <div class="occasion-card" data-nav="gallery" data-filter="first" role="button" tabindex="0">
+          <div class="occasion-photo"><img src="images/topper-4.jpg" width="480" height="640" loading="lazy" decoding="async"
+               alt="Two-tier white first-birthday cake with a '1' topper featuring a sun, a rainbow and the name Lucca"></div>
+          <div class="occasion-body"><h3>First Birthdays</h3><p>Sun, rainbow &amp; name sets</p></div>
+        </div>
+        <div class="occasion-card" data-nav="gallery" data-filter="character" role="button" tabindex="0">
+          <div class="occasion-photo"><img src="images/topper-3.jpg" width="360" height="640" loading="lazy" decoding="async" style="object-position: center 15%"
+               alt="Lilac birthday cake with a Bluey character topper, lollipop and ice-cream toppers and a purple 'Savannah' name topper"></div>
+          <div class="occasion-body"><h3>Character &amp; Theme</h3><p>Favorite characters + name</p></div>
+        </div>
+        <div class="occasion-card wide-sm" data-nav="gallery" data-filter="wedding" role="button" tabindex="0">
+          <div class="occasion-photo no-photo"><svg class="occasion-icon" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#f7e6e9"/><path d="M28 38c-6-4.5-12-8-12-14a6 6 0 0112-2 6 6 0 0112 2c0 6-6 9.5-12 14z" fill="#e8b4bc"/><circle cx="20" cy="16" r="1.5" fill="#c9a227"/><circle cx="38" cy="18" r="1.2" fill="#e8d48b"/></svg></div>
+          <div class="occasion-body"><h3>Weddings &amp; Events</h3><p>Couples &amp; anniversaries</p></div>
+        </div>
+      </div>
+      <p class="occasions-credit">Photos &mdash; Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Why Little Craft Design</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Name + age lettering, photo edits, and gold glitter cardstock — handmade for your party.</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <svg class="benefit-icon" viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" fill="#f7e6e9"/>
+            <rect x="14" y="16" width="24" height="20" rx="2" stroke="#c97b84" stroke-width="1.5" fill="#fff"/>
+            <circle cx="26" cy="24" r="5" stroke="#c9a227" stroke-width="1.5" fill="none"/>
+            <path d="M18 32l4-4 3 3 5-6 4 7" stroke="#c97b84" stroke-width="1.5" fill="none"/>
+          </svg>
+          <h3>Custom Photo Edits</h3>
+          <p>Your photos are carefully edited in Photoshop — polished, cropped, and styled to look perfect as a cake topper.</p>
+        </div>
+        <div class="benefit-card">
+          <svg class="benefit-icon" viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" fill="#fef5e8"/>
+            <rect x="15" y="14" width="22" height="26" rx="3" fill="#f5d89a" stroke="#c9a227" stroke-width="1.5"/>
+            <circle cx="20" cy="20" r="1.5" fill="#c9a227"/>
+            <circle cx="32" cy="24" r="1.2" fill="#e8d48b"/>
+            <circle cx="24" cy="30" r="1" fill="#c9a227"/>
+            <circle cx="30" cy="34" r="1.3" fill="#e8d48b"/>
+            <circle cx="18" cy="36" r="0.9" fill="#c9a227"/>
+          </svg>
+          <h3>Glossy Glitter Cardstock</h3>
+          <p>Printed on thick, glossy cardstock with a beautiful glitter finish that catches the light on every cake.</p>
+        </div>
+        <div class="benefit-card">
+          <svg class="benefit-icon" viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" fill="#e8f0fa"/>
+            <circle cx="26" cy="26" r="12" stroke="#c9a227" stroke-width="1.5" fill="none"/>
+            <path d="M26 20v7l4 3" stroke="#c97b84" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <circle cx="26" cy="26" r="2" fill="#c9a227"/>
+          </svg>
+          <h3>Proof Within 24 Hours</h3>
+          <p>Receive a digital proof of your edited topper within 24 hours so you can approve before we print and cut.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="section-title">What Customers Say</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Sample testimonials for this mockup — replace with real reviews.</p>
+      <div class="testimonials">
+        <div class="testimonial">
+          <span class="sample-tag">Sample Review</span>
+          <div class="stars">
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+          </div>
+          <p>"The name + age topper for my son's birthday was perfect — thick glitter cardstock and the gold lettering popped on the cake. Everyone asked where I got it!"</p>
+          <cite>— Camila R.</cite>
+        </div>
+        <div class="testimonial">
+          <span class="sample-tag">Sample Review</span>
+          <div class="stars">
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+          </div>
+          <p>"Ordered a sun &amp; rainbow set for my daughter's 1st birthday and got a proof the same day. The pastel + gold glitter look was exactly what I wanted!"</p>
+          <cite>— Priya K.</cite>
+        </div>
+        <div class="testimonial">
+          <span class="sample-tag">Sample Review</span>
+          <div class="stars">
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+            <svg viewBox="0 0 14 14" fill="#c9a227"><path d="M7 1l1.5 4.5H13l-3.5 2.8L11 13 7 10.2 3 13l1.5-4.7L1 5.5h4.5z"/></svg>
+          </div>
+          <p>"Pedimos um topo de 15 Anos com glitter dourado — ficou lindo! A edição da foto e o corte ficaram profissionais. Super recomendo!"</p>
+          <cite>— Ana Paula S.</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="page-gallery" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <h1>Gallery</h1>
+      <div class="gold-line"></div>
+      <p>Real toppers from our Instagram, plus sample designs. Every topper is custom-made.</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:2rem">
+    <div class="container">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="kids">Kids' Birthdays</button>
+        <button class="filter-btn" data-filter="milestone">Milestone Birthdays</button>
+        <button class="filter-btn" data-filter="first">First Birthdays</button>
+        <button class="filter-btn" data-filter="character">Character &amp; Theme</button>
+        <button class="filter-btn" data-filter="cupcake">Cupcake &amp; Sweet Picks</button>
+        <button class="filter-btn" data-filter="wedding">Weddings &amp; Events</button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+
+        <div class="gallery-card" data-occasion="kids">
+          <div class="gallery-preview kids">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="150" height="170" viewBox="0 0 150 170">
+              <defs><linearGradient id="gk1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff9f0"/><stop offset="100%" stop-color="#f5d89a"/></linearGradient></defs>
+              <rect x="20" y="12" width="110" height="115" rx="14" fill="url(#gk1)" stroke="#c9a227" stroke-width="2.5"/>
+              <text x="75" y="55" text-anchor="middle" font-family="Georgia" font-size="22" font-weight="700" fill="#c9a227">LUCAS</text>
+              <text x="75" y="90" text-anchor="middle" font-family="Georgia" font-size="36" font-weight="700" fill="#a8841a">7</text>
+              <circle cx="40" cy="30" r="2" fill="#c9a227"/><circle cx="110" cy="35" r="1.5" fill="#e8d48b"/><circle cx="45" cy="100" r="1.2" fill="#c9a227"/>
+              <rect x="73" y="127" width="4" height="30" rx="1" fill="#c9a227"/>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">Kids' Birthday</span><h3>Name + Age Number</h3><p>Name + age, gold glitter</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="kids">
+          <div class="gallery-preview kids">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="150" height="170" viewBox="0 0 150 170">
+              <defs><linearGradient id="gk2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef5e8"/><stop offset="100%" stop-color="#e8c878"/></linearGradient></defs>
+              <circle cx="75" cy="70" r="55" fill="url(#gk2)" stroke="#c9a227" stroke-width="2.5"/>
+              <text x="75" y="60" text-anchor="middle" font-family="Georgia" font-size="16" font-weight="700" fill="#a8841a">SOFIA</text>
+              <text x="75" y="95" text-anchor="middle" font-family="Georgia" font-size="28" font-weight="700" fill="#c9a227">8</text>
+              <circle cx="40" cy="40" r="2" fill="#c9a227"/><circle cx="110" cy="45" r="1.5" fill="#e8d48b"/>
+              <rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">Kids' Birthday</span><h3>Round Name Topper</h3><p>Name + age, gold glitter</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="milestone">
+          <div class="gallery-preview milestone photo">
+            <img src="images/topper-1.jpg" width="480" height="640" loading="lazy" decoding="async"
+                 alt="Green-topped layer cake with a Brazil flag, three soccer-ball toppers and a blue and gold '15 Anos' topper on the front">
+          </div>
+          <div class="gallery-info"><span class="tag">Milestone</span><h3>15 Anos + Brazil Soccer</h3><p>Brazil flag &amp; soccer-ball toppers with a blue-and-gold 15 Anos topper</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/p/DcBhGMAFuqp/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="milestone">
+          <div class="gallery-preview milestone">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="150" height="170" viewBox="0 0 150 170">
+              <defs><linearGradient id="gm2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f0d0d6"/></linearGradient></defs>
+              <rect x="18" y="15" width="114" height="110" rx="12" fill="url(#gm2)" stroke="#c9a227" stroke-width="2.5"/>
+              <text x="75" y="55" text-anchor="middle" font-family="Georgia" font-size="13" fill="#a85a64" font-style="italic">Sweet</text>
+              <text x="75" y="90" text-anchor="middle" font-family="Georgia" font-size="36" font-weight="700" fill="#c9a227">16</text>
+              <text x="75" y="110" text-anchor="middle" font-family="Georgia" font-size="11" fill="#a8841a">AVA</text>
+              <circle cx="35" cy="30" r="2" fill="#c9a227"/><circle cx="115" cy="100" r="1.5" fill="#e8d48b"/>
+              <rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">Milestone</span><h3>Sweet 16</h3><p>Name + age, gold glitter</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="first">
+          <div class="gallery-preview first photo">
+            <img src="images/topper-4.jpg" width="480" height="640" loading="lazy" decoding="async"
+                 alt="Two-tier white first-birthday cake with a '1' topper featuring a sun, a rainbow and the name Lucca, plus sun and rainbow cake decorations">
+          </div>
+          <div class="gallery-info"><span class="tag">First Birthday</span><h3>Lucca&rsquo;s First Birthday</h3><p>&ldquo;1&rdquo; topper with sun, rainbow &amp; blue name on a two-tier cake</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/p/DSl-bvjDe_k/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="first">
+          <div class="gallery-preview first">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="140" height="170" viewBox="0 0 140 170">
+              <defs><linearGradient id="gf2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fffaf5"/><stop offset="100%" stop-color="#f5d0c8"/></linearGradient></defs>
+              <rect x="18" y="12" width="104" height="115" rx="16" fill="url(#gf2)" stroke="#c9a227" stroke-width="2.5"/>
+              <!-- teddy bear simple -->
+              <circle cx="55" cy="48" r="12" fill="#e8c8a0"/><circle cx="85" cy="48" r="12" fill="#e8c8a0"/>
+              <circle cx="70" cy="58" r="20" fill="#f0d4b0"/>
+              <circle cx="62" cy="55" r="2" fill="#3d2c2e"/><circle cx="78" cy="55" r="2" fill="#3d2c2e"/>
+              <ellipse cx="70" cy="65" rx="5" ry="3.5" fill="#d4a878"/>
+              <text x="70" y="105" text-anchor="middle" font-family="Georgia" font-size="14" font-weight="700" fill="#c9a227">1st</text>
+              <circle cx="35" cy="28" r="1.5" fill="#c9a227"/><circle cx="105" cy="90" r="1.2" fill="#e8d48b"/>
+              <rect x="68" y="127" width="4" height="30" rx="1" fill="#c9a227"/>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">First Birthday</span><h3>Teddy Bear Topper</h3><p>Soft pastel teddy, gold glitter edge</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="character">
+          <div class="gallery-preview character photo">
+            <img src="images/topper-3.jpg" width="360" height="640" loading="lazy" decoding="async" style="object-position: center 15%"
+                 alt="Lilac birthday cake with a Bluey character topper, lollipop and ice-cream toppers and a purple 'Savannah' name topper">
+          </div>
+          <div class="gallery-info"><span class="tag">Character &amp; Theme</span><h3>Savannah&rsquo;s Bluey Party</h3><p>Bluey character, lollipop &amp; ice-cream toppers with a purple name topper</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/reel/DYAhdtgRWRw/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="character">
+          <div class="gallery-preview character photo">
+            <img src="images/topper-2.jpg" width="480" height="640" loading="lazy" decoding="async"
+                 alt="Green, yellow and blue cake with a Brazil flag topper, soccer-ball toppers and a blue and gold age topper">
+          </div>
+          <div class="gallery-info"><span class="tag">Character &amp; Theme</span><h3>Brazil Soccer Birthday</h3><p>Flag &amp; soccer-ball toppers with a blue-and-gold name + age topper</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/p/DcBgPLuG25p/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="cupcake">
+          <div class="gallery-preview cupcake">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="140" height="160" viewBox="0 0 140 160">
+              <defs><linearGradient id="gcp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f8f0fa"/><stop offset="100%" stop-color="#d4b8e0"/></linearGradient></defs>
+              <circle cx="45" cy="50" r="28" fill="url(#gcp1)" stroke="#c9a227" stroke-width="1.5"/>
+              <text x="45" y="55" text-anchor="middle" font-family="Georgia" font-size="14" font-weight="700" fill="#c9a227">A</text>
+              <circle cx="95" cy="50" r="28" fill="url(#gcp1)" stroke="#c9a227" stroke-width="1.5"/>
+              <text x="95" y="55" text-anchor="middle" font-family="Georgia" font-size="14" font-weight="700" fill="#c9a227">5</text>
+              <circle cx="70" cy="100" r="28" fill="url(#gcp1)" stroke="#c9a227" stroke-width="1.5"/>
+              <circle cx="70" cy="100" r="6" fill="#e8d48b"/>
+              <circle cx="40" cy="35" r="1.2" fill="#c9a227"/><circle cx="105" cy="40" r="1" fill="#e8d48b"/>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">Cupcake Picks</span><h3>Matching Mini Picks</h3><p>Initial, age &amp; accent for sweets</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="cupcake">
+          <div class="gallery-preview cupcake">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="140" height="160" viewBox="0 0 140 160">
+              <defs><linearGradient id="gcp2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef5e8"/><stop offset="100%" stop-color="#f5d89a"/></linearGradient></defs>
+              <circle cx="40" cy="55" r="24" fill="url(#gcp2)" stroke="#c9a227" stroke-width="1.5"/>
+              <circle cx="40" cy="55" r="5" fill="#c9a227"/>
+              <circle cx="100" cy="55" r="24" fill="url(#gcp2)" stroke="#c9a227" stroke-width="1.5"/>
+              <text x="100" y="60" text-anchor="middle" font-family="Georgia" font-size="12" font-weight="700" fill="#a8841a">★</text>
+              <circle cx="70" cy="105" r="24" fill="url(#gcp2)" stroke="#c9a227" stroke-width="1.5"/>
+              <text x="70" y="110" text-anchor="middle" font-family="Georgia" font-size="11" font-weight="700" fill="#c9a227">♥</text>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">Cupcake Picks</span><h3>Glitter Accent Set</h3><p>Small picks for cupcakes &amp; sweets</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="wedding">
+          <div class="gallery-preview wedding">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="150" height="170" viewBox="0 0 150 170">
+              <defs><linearGradient id="gw1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdf6f8"/><stop offset="100%" stop-color="#e8b4bc"/></linearGradient></defs>
+              <ellipse cx="75" cy="70" rx="55" ry="58" fill="url(#gw1)" stroke="#c9a227" stroke-width="2.5"/>
+              <circle cx="58" cy="55" r="16" fill="#f5d0c8"/><circle cx="92" cy="55" r="16" fill="#f0c8c0"/>
+              <ellipse cx="58" cy="52" rx="9" ry="10" fill="#e8a898"/><ellipse cx="92" cy="52" rx="9" ry="10" fill="#e0a090"/>
+              <text x="75" y="105" text-anchor="middle" font-family="Georgia" font-size="11" fill="#a85a64" font-style="italic">Mr &amp; Mrs</text>
+              <circle cx="40" cy="40" r="1.5" fill="#c9a227"/><circle cx="110" cy="45" r="1.2" fill="#e8d48b"/>
+              <rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">Weddings &amp; Events</span><h3>Couple Photo Topper</h3><p>Photo edit on glitter cardstock</p></div>
+        </div>
+
+        <div class="gallery-card" data-occasion="wedding">
+          <div class="gallery-preview wedding">
+            <div class="marble-bg"></div>
+            <span class="sample-label">Sample design</span>
+            <svg width="140" height="170" viewBox="0 0 140 170">
+              <defs><linearGradient id="gw2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f0d0d6"/></linearGradient></defs>
+              <circle cx="70" cy="70" r="52" fill="url(#gw2)" stroke="#c9a227" stroke-width="2.5"/>
+              <text x="70" y="60" text-anchor="middle" font-family="Georgia" font-size="13" fill="#a85a64" font-style="italic">Happy</text>
+              <text x="70" y="85" text-anchor="middle" font-family="Georgia" font-size="16" font-weight="700" fill="#c9a227">Anniversary</text>
+              <circle cx="40" cy="40" r="1.5" fill="#c9a227"/><circle cx="100" cy="95" r="1.2" fill="#e8d48b"/>
+              <rect x="68" y="122" width="4" height="30" rx="1" fill="#c9a227"/>
+            </svg>
+          </div>
+          <div class="gallery-info"><span class="tag">Weddings &amp; Events</span><h3>Party / Anniversary</h3><p>Custom lettering, gold glitter</p></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="page-how-it-works" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <h1>How It Works</h1>
+      <div class="gold-line"></div>
+      <p>From your photo &amp; details to a sparkly gold-glitter cake topper — five simple steps.</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:2rem">
+    <div class="container">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Send Your Photos &amp; Details</h3>
+            <p>Share your photo(s), the name and age (or text), event date, theme or colors, and whether you need matching cupcake picks. Tell us your preferred size and style.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Photoshop Edit + Digital Proof</h3>
+            <p>We carefully edit your photo in Photoshop — adjusting color, cropping, and composing the design with gold glitter lettering. You'll receive a digital proof within 24 hours.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Approve Your Design</h3>
+            <p>Review the proof and request any tweaks. Once you approve, we move to production. One round of minor revisions is included.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Print &amp; Cricut-Cut</h3>
+            <p>Your design is printed on thick glossy glitter cardstock, then precision machine-cut with a Cricut for clean, professional edges. Food-safe stick attached.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h3>Ship or Local Pickup</h3>
+            <p>We carefully package your topper for shipping, or arrange free local pickup in American Fork &amp; Utah County. You'll get tracking info as soon as it ships.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="turnaround-note">
+        <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#c9a227" stroke-width="1.5"/><path d="M14 8v7l4 2.5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round"/><circle cx="14" cy="14" r="1.5" fill="#c9a227"/></svg>
+        <div>
+          <h4>Turnaround &amp; Rush Options</h4>
+          <p>Standard turnaround is 5–7 business days after proof approval (plus shipping). Need it sooner? Rush production (2–3 business days) is available as an add-on — just note your party date when ordering so we can plan ahead.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem">
+        <a href="#order" class="btn btn-primary" data-nav="order">Start Your Order</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="page-pricing" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <h1>Pricing</h1>
+      <div class="gold-line"></div>
+      <p>Simple tiers for birthday toppers &amp; party crafts — custom quotes for intricate designs.</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:2rem">
+    <div class="container">
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3 class="price-tier">Basic</h3>
+          <div class="price-amount">$12–18</div>
+          <p class="price-desc">Simple cardstock designs</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Name + age, simple shape</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Glossy glitter cardstock</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Basic Photoshop cleanup</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Digital proof included</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Food-safe stick attached</li>
+          </ul>
+          <a href="#order" class="btn btn-secondary btn-sm" data-nav="order">Choose Basic</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="price-badge">Most Popular</div>
+          <h3 class="price-tier">Custom</h3>
+          <div class="price-amount">$20–30</div>
+          <p class="price-desc">Personalized designs</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#fef5e8"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Custom text, themes &amp; colors</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#fef5e8"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Detailed Photoshop editing</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#fef5e8"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Character / theme layouts</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#fef5e8"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Premium gold glitter cardstock</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#fef5e8"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> One revision round included</li>
+          </ul>
+          <a href="#order" class="btn btn-primary btn-sm" data-nav="order">Choose Custom</a>
+        </div>
+
+        <div class="price-card">
+          <h3 class="price-tier">Premium</h3>
+          <div class="price-amount">$35–50<span>+</span></div>
+          <p class="price-desc">Complex or acrylic work</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Multi-layer or acrylic options</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Full birthday sets + cupcake picks</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Intricate custom shapes</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Priority proofing</li>
+            <li><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#f7e6e9"/><path d="M5 9l3 3 5-5" stroke="#c9a227" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Custom quotes for intricate jobs</li>
+          </ul>
+          <a href="#order" class="btn btn-secondary btn-sm" data-nav="order">Choose Premium</a>
+        </div>
+      </div>
+
+      <div class="addons">
+        <h3>Add-Ons</h3>
+        <div class="addons-grid">
+          <div class="addon-item"><strong>Rush Production</strong><span>+$8–15 (placeholder)</span></div>
+          <div class="addon-item"><strong>Extra Cupcake Toppers</strong><span>From $3 each (placeholder)</span></div>
+          <div class="addon-item"><strong>Shipping</strong><span>Calculated at checkout</span></div>
+          <div class="addon-item"><strong>Local Pickup</strong><span>Free — American Fork area</span></div>
+        </div>
+      </div>
+
+      <div class="faq">
+        <h3>Frequently Asked Questions</h3>
+        <div class="faq-item">
+          <button class="faq-q" type="button">How long does an order take?<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l5 5 5-5"/></svg></button>
+          <div class="faq-a">You'll receive a digital proof within 24 hours. After approval, standard production is 5–7 business days, plus shipping time. Rush options are available for parties coming up soon.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">What photo quality do you need?<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l5 5 5-5"/></svg></button>
+          <div class="faq-a">A clear, well-lit photo works best — ideally at least 1000px on the short side. For name + age only designs, a photo is optional. We can often improve older photos with careful editing.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">Are the toppers food-safe?<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l5 5 5-5"/></svg></button>
+          <div class="faq-a">Yes — we use food-safe sticks. The glitter cardstock itself is not meant to be eaten; simply remove the topper before serving.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">Can I request changes after the proof?<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l5 5 5-5"/></svg></button>
+          <div class="faq-a">Absolutely. One round of minor revisions is included with every order. Additional revision rounds can be arranged if needed.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">Vocês falam português?<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l5 5 5-5"/></svg></button>
+          <div class="faq-a">Sim! Falamos português. Pode enviar o pedido e as fotos em português — teremos prazer em ajudar com o seu topo de bolo personalizado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="page-order" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <h1>Order / Contact</h1>
+      <div class="gold-line"></div>
+      <p>Tell us about the birthday or celebration — we'll craft something sparkly just for you.</p>
+      <div class="pt-note" style="margin:1rem auto 0;display:inline-flex">Falamos Português · We speak Portuguese</div>
+    </div>
+  </div>
+  <div class="section" style="padding-top:2rem">
+    <div class="container">
+      <div class="order-layout">
+        <div class="form-card">
+          <h2>Start Your Order</h2>
+          <p>Fill out the details below. This is a mockup form — submissions are not sent.</p>
+          <form id="orderForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name <span class="req">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email <span class="req">*</span></label>
+                <input type="email" id="email" name="email" placeholder="you@email.com" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+              </div>
+              <div class="form-group">
+                <label for="eventDate">Event Date <span class="req">*</span></label>
+                <input type="date" id="eventDate" name="eventDate" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="occasion">Occasion <span class="req">*</span></label>
+                <select id="occasion" name="occasion" required>
+                  <option value="">Select occasion…</option>
+                  <option value="kids">Kids' Birthday</option>
+                  <option value="milestone">Milestone (15 Anos / Sweet 16)</option>
+                  <option value="first">First Birthday</option>
+                  <option value="character">Character &amp; Theme</option>
+                  <option value="wedding">Wedding / Event</option>
+                  <option value="other">Party / Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="tier">Pricing Tier <span class="req">*</span></label>
+                <select id="tier" name="tier" required>
+                  <option value="">Select tier…</option>
+                  <option value="basic">Basic ($12–18)</option>
+                  <option value="custom">Custom ($20–30)</option>
+                  <option value="premium">Premium ($35–50+)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Upload Photo(s)</label>
+              <div class="upload-zone" id="uploadZone">
+                <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M18 24V8M18 8l-6 6M18 8l6 6"/>
+                  <path d="M8 28h20"/>
+                </svg>
+                <p>Click or drag photos here</p>
+                <small>JPG, PNG · Mockup only — files are not uploaded</small>
+                <input type="file" id="photoUpload" accept="image/*" multiple style="display:none">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="namesText">Name / Age / Text to Include</label>
+              <input type="text" id="namesText" name="namesText" placeholder='e.g. "Emma · 5" or "Meus 15 Anos — Isabela"'>
+            </div>
+            <div class="form-group">
+              <label for="notes">Notes / Theme / Special Requests</label>
+              <textarea id="notes" name="notes" placeholder="Theme (e.g. soccer, pastel rainbow), colors, size, matching cupcake picks, or anything else…"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Delivery Preference</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="delivery" value="pickup" checked>
+                  Local Pickup (Free)
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="delivery" value="shipping">
+                  Shipping
+                </label>
+              </div>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary" style="width:100%">Submit Order Request</button>
+            </div>
+            <div class="mockup-toast" id="mockupToast">
+              This is a website mockup — your order was not submitted. When the real site goes live on Squarespace, this form will send your request to Little Craft Design!
+            </div>
+          </form>
+        </div>
+
+        <div class="contact-sidebar">
+          <div class="contact-card">
+            <h3>Contact Info</h3>
+            <div class="contact-item">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2 6l8 5 8-5"/></svg>
+              <div><strong>Email</strong>hello@littlecraftdesign.com</div>
+            </div>
+            <div class="contact-item">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 3h3l2 5-2 1.5a10 10 0 005 5L13.5 13l5 2v3a2 2 0 01-2 2A15 15 0 012 5a2 2 0 012-2z"/></svg>
+              <div><strong>Phone</strong>(555) 000-0000</div>
+            </div>
+            <div class="contact-item">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2C6.5 2 4 4.7 4 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.3-2.5-6-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+              <div><strong>Location</strong>Serving American Fork &amp; Utah County, Utah</div>
+            </div>
+            <div class="pt-note" style="margin-top:0.5rem;width:100%;justify-content:center">Falamos Português</div>
+          </div>
+
+          <div class="contact-card">
+            <h3>Find Us Online</h3>
+            <div class="social-links">
+              <a href="https://www.instagram.com/littlecraftdesign" class="social-link" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+                </svg>
+                <div>Instagram<div class="handle">@littlecraftdesign</div></div>
+              </a>
+              <a href="https://linktr.ee/littlecraftdesign" class="social-link" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M8 12h8M12 8v8"/>
+                </svg>
+                <div>Linktree<div class="handle">linktr.ee/littlecraftdesign</div></div>
+              </a>
+              <a href="#" class="social-link" onclick="return false;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="3"/>
+                  <path d="M16 8h-2a2 2 0 00-2 2v2h4l-.5 3H12v7"/>
+                </svg>
+                <div>Facebook<div class="handle">@LittleCraftDesign (placeholder)</div></div>
+              </a>
+              <a href="#" class="social-link" onclick="return false;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M8 12c0-4 1.5-7 4-7s4 3 4 7-1.5 7-4 7-4-3-4-7z"/>
+                  <path d="M5 10h14M5 14h14"/>
+                </svg>
+                <div>Etsy<div class="handle">LittleCraftDesign (placeholder)</div></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-card" style="background:linear-gradient(135deg,#fdf6e8,#f7e6e9);border:1px solid #e8d48b">
+            <h3 style="font-size:1rem">Response Time</h3>
+            <p style="font-size:0.9rem;color:var(--text-soft)">We typically reply within 24 hours. Digital proofs are sent within one business day of receiving your photos &amp; details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:0.75rem">
+          <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="18" fill="rgba(247,230,233,0.15)" stroke="#e8d48b" stroke-width="1.5"/>
+            <path d="M20 8c.5 4 2 7 5 9-3 2-4.5 5-5 9-.5-4-2-7-5-9 3-2 4.5-5 5-9z" fill="#e8d48b"/>
+            <circle cx="20" cy="20" r="3" fill="#e8b4bc"/>
+          </svg>
+          <div class="logo-text">
+            Little Craft Design
+            <span>Custom Party Crafts</span>
+          </div>
+        </div>
+        <p>Handcrafted made with love. Custom gold-glitter cake toppers for kids' birthdays, milestones, and celebrations — photo-edited and Cricut-cut in American Fork, Utah.</p>
+        <p style="margin-top:0.75rem;font-size:0.85rem;color:#e8d48b">Falamos Português</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#home" data-nav="home">Home</a></li>
+          <li><a href="#gallery" data-nav="gallery">Gallery</a></li>
+          <li><a href="#how-it-works" data-nav="how-it-works">How It Works</a></li>
+          <li><a href="#pricing" data-nav="pricing">Pricing</a></li>
+          <li><a href="#order" data-nav="order">Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/littlecraftdesign" target="_blank" rel="noopener">Instagram @littlecraftdesign</a></li>
+          <li><a href="https://linktr.ee/littlecraftdesign" target="_blank" rel="noopener">Linktree</a></li>
+          <li><a href="#" onclick="return false;">Facebook (placeholder)</a></li>
+          <li><a href="#" onclick="return false;">Etsy (placeholder)</a></li>
+          <li><a href="#order" data-nav="order">Contact / Order</a></li>
+        </ul>
+        <p style="margin-top:1rem;font-size:0.85rem;color:rgba(255,255,255,0.55)">Serving American Fork &amp; Utah County, Utah</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Little Craft Design. All rights reserved. · Website mockup</span>
+      <span class="mockup-owner-note">Mockup note for owner: Planned on Squarespace, about $19–25/month.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var pages = ['home', 'gallery', 'how-it-works', 'pricing', 'order'];
+
+  function showPage(id) {
+    if (!pages.includes(id)) id = 'home';
+    document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('active'); });
+    var el = document.getElementById('page-' + id);
+    if (el) el.classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-nav') === id);
+    });
+    var nav = document.getElementById('navLinks');
+    if (nav) nav.classList.remove('open');
+    window.scrollTo(0, 0);
+  }
+
+  function navigate(id) {
+    showPage(id);
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    else location.hash = id;
+  }
+
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('[data-nav]');
+    if (!link) return;
+    e.preventDefault();
+    var id = link.getAttribute('data-nav');
+    navigate(id);
+    var filter = link.getAttribute('data-filter');
+    if (filter && id === 'gallery') {
+      setTimeout(function () { applyFilter(filter); }, 50);
+    }
+  });
+
+  function onHash() {
+    var hash = (location.hash || '#home').replace('#', '');
+    showPage(hash);
+  }
+  window.addEventListener('hashchange', onHash);
+  onHash();
+
+  var toggle = document.getElementById('menuToggle');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+  }
+
+  function applyFilter(filter) {
+    document.querySelectorAll('.filter-btn').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-filter') === filter);
+    });
+    document.querySelectorAll('.gallery-card').forEach(function (card) {
+      var occ = card.getAttribute('data-occasion');
+      if (filter === 'all' || occ === filter) card.classList.remove('hidden');
+      else card.classList.add('hidden');
+    });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      applyFilter(btn.getAttribute('data-filter'));
+    });
+  });
+
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  var form = document.getElementById('orderForm');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var toast = document.getElementById('mockupToast');
+      toast.classList.add('show');
+      setTimeout(function () { toast.classList.remove('show'); }, 6000);
+    });
+  }
+
+  var zone = document.getElementById('uploadZone');
+  var fileInput = document.getElementById('photoUpload');
+  if (zone && fileInput) {
+    zone.addEventListener('click', function () { fileInput.click(); });
+    fileInput.addEventListener('change', function () {
+      if (fileInput.files.length) {
+        zone.querySelector('p').textContent = fileInput.files.length + ' file(s) selected (mockup — not uploaded)';
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
