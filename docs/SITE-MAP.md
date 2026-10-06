@@ -56,6 +56,24 @@ This is a **single-file SPA**, not a multi-page site with separate HTML/CSS/JS f
 
 ---
 
+## Tech stack
+
+Full breakdown (what each technology does, key files, and what is **not** used): **[docs/TECH-STACK.md](./TECH-STACK.md)**.
+
+Short version:
+
+| Layer | What this site uses |
+|---|---|
+| Markup | HTML5 in a single `index.html` |
+| Styling | Inline CSS3 in `<style>` (system fonts only — no font CDN) |
+| Behavior | Inline vanilla JavaScript (no React / jQuery / etc.) |
+| Payments | Stripe **Payment Links** via empty `STRIPE_LINKS` config → mailto fallback today (**no** Stripe.js) |
+| Assets | JPEG gallery photos, PNG logos/icons, ICO favicon, inline SVG icons |
+| Hosting | GitHub Pages + `.nojekyll` (no Jekyll, no custom domain/`CNAME`) |
+| Docs | Markdown (`SITE-MAP.md`, `TECH-STACK.md`, `STRIPE-SETUP.md`) |
+
+---
+
 ## Full file tree
 
 Paths are relative to the repo root. Only files that exist are listed (nothing invented).
@@ -67,7 +85,8 @@ littlecraftdesign/                 # repo root (= /workspace/lcd-pages locally)
 ├── index.html                     # THE entire site (HTML + CSS + JS)
 ├── STRIPE-SETUP.md                # owner how-to for Payment Links; ships on Pages, not linked in UI
 ├── docs/
-│   └── SITE-MAP.md                # this file — permanent Alan reference
+│   ├── SITE-MAP.md                # this file — permanent Alan reference
+│   └── TECH-STACK.md              # plain-English technology breakdown
 ├── favicon.ico                    # browser tab icon (linked from <head>, ?v=2)
 ├── favicon-16x16.png
 ├── favicon-32x32.png
@@ -95,6 +114,7 @@ littlecraftdesign/                 # repo root (= /workspace/lcd-pages locally)
 | `.nojekyll` | Empty marker so Pages serves files as-is | Required for project Pages when you want no Jekyll processing |
 | `STRIPE-SETUP.md` | Checklist of 14 Payment Links to create; paste URLs into `STRIPE_LINKS` | Documents keys that must match the JS config in `index.html` |
 | `docs/SITE-MAP.md` | This inventory / “what to touch when” guide | Human reference only |
+| `docs/TECH-STACK.md` | Plain-English list of every technology used (and explicitly not used) | Human reference only — see also the short Tech stack section below |
 | `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png` | Browser / device icons | Linked from `<head>` with `?v=2` cache-bust |
 
 **Not present (confirmed):** `CNAME`, `_config.yml`, `robots.txt`, `package.json`, `README.md`, any `.css` or `.js` files, `node_modules`.
