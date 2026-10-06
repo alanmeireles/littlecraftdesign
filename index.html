@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Little Craft Design — Custom Birthday Cake Toppers</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23f7e6e9' stroke='%23c9a227' stroke-width='1.5'/%3E%3Cpath d='M20 8c.5 4 2 7 5 9-3 2-4.5 5-5 9-.5-4-2-7-5-9 3-2 4.5-5 5-9z' fill='%23c9a227'/%3E%3C/svg%3E">
 <style>
   :root {
     --blush: #f7e6e9;
@@ -212,47 +213,56 @@
     background: linear-gradient(135deg, var(--gold-light), var(--gold));
     border-color: var(--gold); color: var(--white);
   }
+  /* Unified photo frame: gallery, shop and homepage tiles */
+  .photo-frame {
+    position: relative; aspect-ratio: 4 / 5; margin: 10px 10px 0; padding: 7px;
+    border-radius: 14px; overflow: hidden;
+    background: linear-gradient(145deg, var(--ivory) 0%, var(--blush) 100%);
+    box-shadow: inset 0 0 0 1px var(--blush-mid);
+  }
+  .photo-frame img {
+    width: 100%; height: 100%; display: block; object-fit: cover;
+    border-radius: 9px; transition: transform 0.4s;
+  }
+  .photo-frame .concept-art {
+    width: 100%; height: 100%; border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(145deg, #fffaf7 0%, #f7e6e9 60%, #f3e3c4 100%);
+  }
+  .photo-frame .concept-art svg { width: 52%; height: auto; }
+  .photo-frame .concept-art.icon svg { width: 42%; }
+  .frame-label {
+    position: absolute; top: 15px; left: 15px; z-index: 2;
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold-dark); background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(201,162,39,0.4); border-radius: 50px; padding: 0.18rem 0.6rem;
+  }
+  .photo-caption { padding: 0.85rem 1.1rem 1.1rem; }
+  .photo-caption h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; line-height: 1.3; color: var(--text); }
+  .photo-caption .theme { font-size: 0.84rem; color: var(--text-soft); margin-top: 0.2rem; line-height: 1.4; }
+  .credit {
+    font-size: 0.72rem; color: var(--text-muted); margin-top: 0.55rem; padding-top: 0.5rem;
+    border-top: 1px dashed var(--blush-mid); line-height: 1.45;
+  }
+  .credit a { color: var(--gold-dark); font-weight: 600; }
+  .credit a:hover { color: var(--rose-deep); }
+
   .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .gallery-card {
-    background: var(--white); border-radius: var(--radius); overflow: hidden;
+    background: var(--white); border-radius: var(--radius); overflow: hidden; margin: 0;
     box-shadow: var(--shadow); transition: transform 0.25s, box-shadow 0.25s;
+    display: flex; flex-direction: column;
   }
   .gallery-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .gallery-card:hover .photo-frame img { transform: scale(1.03); }
   .gallery-card.hidden { display: none; }
-  .gallery-preview {
-    aspect-ratio: 4 / 5; display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
+  .filter-btn .count { opacity: 0.7; font-size: 0.78em; margin-left: 0.2rem; }
+  .gallery-empty {
+    display: none; text-align: center; color: var(--text-soft); background: var(--white);
+    border-radius: var(--radius); padding: 2rem 1.5rem; box-shadow: var(--shadow); max-width: 520px; margin: 0 auto;
   }
-  .gallery-preview.photo { background: #f3efec; }
-  .gallery-preview.photo img {
-    position: absolute; inset: 0; width: 100%; height: 100%; display: block;
-    object-fit: cover; object-position: center 40%;
-  }
-  .gallery-preview .sample-label {
-    position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2;
-    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--gold-dark); background: rgba(255,255,255,0.72);
-    border: 1px solid rgba(201,162,39,0.35); border-radius: 50px; padding: 0.18rem 0.55rem;
-  }
-  .gallery-info .credit {
-    font-size: 0.72rem; color: var(--text-muted); margin-top: 0.6rem; padding-top: 0.55rem;
-    border-top: 1px dashed var(--blush-mid);
-  }
-  .gallery-info .credit a { color: var(--gold-dark); font-weight: 600; }
-  .gallery-info .credit a:hover { color: var(--rose-deep); }
-  .gallery-preview.wedding { background: linear-gradient(145deg, #fdf6f8, #f0dce2); }
-  .gallery-preview.birthday { background: linear-gradient(145deg, #fef9f0, #f5e4c8); }
-  .gallery-preview.graduation { background: linear-gradient(145deg, #f0f4fa, #d4e0f0); }
-  .gallery-preview.babyshower { background: linear-gradient(145deg, #f5f0fa, #e4d4f0); }
-  .gallery-preview.party { background: linear-gradient(145deg, #f0faf5, #d0eadc); }
-  .gallery-info { padding: 1.15rem 1.25rem; }
-  .gallery-info .tag {
-    display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em;
-    text-transform: uppercase; color: var(--rose); background: var(--blush);
-    padding: 0.2rem 0.55rem; border-radius: 4px; margin-bottom: 0.4rem;
-  }
-  .gallery-info h3 { font-size: 1rem; font-weight: 600; }
-  .gallery-info p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+  .gallery-empty.show { display: block; }
+  .gallery-cta { text-align: center; margin-top: 2.5rem; color: var(--text-soft); font-size: 0.95rem; }
+  .gallery-cta .btn { margin-top: 0.85rem; }
 
   .steps {
     display: flex; flex-direction: column; gap: 0; max-width: 720px;
@@ -439,7 +449,6 @@
     .hero-ctas { justify-content: center; }
     .hero-visual { min-height: 280px; }
     .hero-toppers { width: 260px; height: 280px; }
-    .occasions-grid { grid-template-columns: repeat(3, 1fr); }
     .benefits-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
     .testimonials { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
@@ -457,8 +466,6 @@
     .nav-links.open { display: flex; }
     .nav-links a { width: 100%; text-align: center; padding: 0.75rem; }
     .menu-toggle { display: flex; }
-    .occasions-grid { grid-template-columns: repeat(2, 1fr); }
-    .gallery-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .addons-grid { grid-template-columns: 1fr; }
     .radio-group { flex-direction: column; }
@@ -466,20 +473,6 @@
     .floating-topper:nth-child(3) { display: none; }
   }
 
-  .gallery-preview.kids { background: linear-gradient(145deg, #fef9f0, #f5e4c8); }
-  .gallery-preview.milestone { background: linear-gradient(145deg, #fdf6f8, #f0dce2); }
-  .gallery-preview.first { background: linear-gradient(145deg, #fff8f0, #ffe8d0); }
-  .gallery-preview.character { background: linear-gradient(145deg, #f0f4fa, #d4e0f0); }
-  .gallery-preview.cupcake { background: linear-gradient(145deg, #f5f0fa, #e4d4f0); }
-  .gallery-preview .marble-bg {
-    position: absolute; inset: 0; opacity: 0.35; pointer-events: none;
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(180,180,180,0.25) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 60%, rgba(160,160,160,0.2) 0%, transparent 40%),
-      radial-gradient(ellipse at 40% 80%, rgba(200,200,200,0.15) 0%, transparent 45%),
-      linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 40%, #ddd 60%, #f0f0f0 100%);
-  }
-  .gallery-preview > svg { position: relative; z-index: 1; width: 58%; height: auto; }
   .pt-note {
     display: inline-flex; align-items: center; gap: 0.4rem;
     font-size: 0.85rem; color: var(--gold-dark); font-weight: 500;
@@ -487,60 +480,31 @@
     border: 1px solid var(--gold-light); border-radius: 50px;
     padding: 0.4rem 0.9rem; margin-top: 0.75rem;
   }
-  /* Home: occasion tiles with real photos */
+  /* Home: occasion tiles (same photo frame as gallery & shop) */
+  .occasions-grid { grid-template-columns: repeat(6, 1fr); }
   .occasions-grid .occasion-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-  .occasion-photo {
-    aspect-ratio: 4 / 5; position: relative; overflow: hidden;
-    border-bottom: 2px solid var(--gold-light);
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(180,180,180,0.18) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 65%, rgba(160,160,160,0.14) 0%, transparent 42%),
-      linear-gradient(135deg, #f6f2ef 0%, #fdfaf8 40%, #ece7e4 62%, #f8f4f1 100%);
-  }
-  .occasion-photo img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; object-position: center 40%; transition: transform 0.4s;
-  }
-  .occasion-card:hover .occasion-photo img { transform: scale(1.04); }
-  .occasion-photo.no-photo { display: flex; align-items: center; justify-content: center; }
-  .occasion-photo.no-photo .occasion-icon { width: 96px; height: 96px; margin: 0; position: relative; }
-  .occasion-body { padding: 0.85rem 0.85rem 1rem; }
-  .occasion-card h3 { font-size: 0.95rem; }
-  .occasion-card p { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; line-height: 1.4; }
-  .occasions-credit {
-    text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 1.25rem;
-  }
+  .occasion-card:hover .photo-frame img { transform: scale(1.04); }
+  .occasion-body { padding: 0.75rem 0.75rem 0.95rem; }
+  .occasion-card h3 { font-size: 0.92rem; line-height: 1.3; }
+  .occasion-card p { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.15rem; line-height: 1.4; }
+  .occasions-credit { text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 1.25rem; }
   .occasions-credit a { color: var(--gold-dark); font-weight: 600; }
   .occasions-credit a:hover { color: var(--rose-deep); }
-  @media (max-width: 640px) {
-    .occasions-grid { gap: 0.85rem; }
-    .occasion-card.wide-sm { grid-column: 1 / -1; }
-    .occasion-card.wide-sm .occasion-photo { aspect-ratio: 5 / 2; }
-    .occasion-card.wide-sm .occasion-photo .occasion-icon { width: 76px; height: 76px; }
-    .occasion-body { padding: 0.75rem 0.7rem 0.9rem; }
-  }
+  @media (max-width: 1000px) { .occasions-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 640px) { .occasions-grid { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; } }
 
   /* Shop product cards */
-  .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .shop-card {
     background: var(--white); border-radius: var(--radius); overflow: hidden;
     box-shadow: var(--shadow); border: 1.5px solid var(--blush-mid);
     display: flex; flex-direction: column; transition: transform 0.25s, box-shadow 0.25s;
   }
   .shop-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-  .shop-card-img {
-    aspect-ratio: 16 / 11; background: linear-gradient(145deg, #fdf6f8, #f0dce2);
-    position: relative; overflow: hidden;
-  }
-  .shop-card-img img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; object-position: center 35%;
-  }
-  .shop-card-img .placeholder-art {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  }
-  .shop-card-body { padding: 1.25rem 1.35rem 1.5rem; display: flex; flex-direction: column; flex: 1; gap: 0.65rem; }
-  .shop-card-body h3 { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; }
+  .shop-card:hover .photo-frame img { transform: scale(1.03); }
+  .shop-card-body { padding: 0.85rem 1.1rem 1.35rem; display: flex; flex-direction: column; flex: 1; gap: 0.65rem; }
+  .shop-card-body h3 { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.25; }
+  .shop-card-body .credit { margin-top: 0; padding-top: 0; border-top: none; margin-bottom: 0.1rem; }
   .shop-card-body .shop-desc { font-size: 0.88rem; color: var(--text-soft); line-height: 1.45; }
   .shop-price-from { font-size: 1.05rem; font-weight: 700; color: var(--rose-deep); }
   .shop-price-from span { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); }
@@ -612,8 +576,12 @@
   .checkbox-row:has(input:checked) { border-color: var(--gold); background: #fdf6e8; }
   .checkbox-row input { margin-top: 0.2rem; accent-color: var(--gold-dark); }
   @media (max-width: 900px) {
-    .shop-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+    .shop-grid { grid-template-columns: repeat(2, 1fr); }
     .checkout-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .gallery-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    .shop-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
   }
 
 </style>
@@ -750,33 +718,34 @@
     <div class="container">
       <h2 class="section-title">Made for Birthdays &amp; Celebrations</h2>
       <div class="gold-line"></div>
-      <p class="section-sub">Kids' and adult birthdays, 15 Anos &amp; milestones, first birthdays, and themed parties — plus weddings &amp; events.</p>
+      <p class="section-sub">Kids' and adult birthdays, 15 Anos &amp; milestones, baby showers, holidays and party treats — plus weddings &amp; events.</p>
       <div class="occasions-grid">
-        <div class="occasion-card" data-nav="gallery" data-filter="milestone" role="button" tabindex="0">
-          <div class="occasion-photo"><img src="images/topper-2.jpg" width="480" height="640" loading="lazy" decoding="async"
-               alt="Green, yellow and blue birthday cake with a Brazil flag topper, soccer-ball toppers and a blue and gold '31 Anos' age topper"></div>
-          <div class="occasion-body"><h3>Adult Birthdays</h3><p>31 Anos, 40th, 50th &amp; more</p></div>
+        <div class="occasion-card" data-nav="gallery" data-filter="birthdays" role="button" tabindex="0">
+          <div class="photo-frame"><img src="images/gallery-31-anos-soccer.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Green, yellow and blue adult birthday cake with Brazil flag and soccer-ball toppers and a blue and gold &#39;31 Anos&#39; topper"></div>
+          <div class="occasion-body"><h3>Birthdays</h3><p>Kids &amp; adults · name + age</p></div>
         </div>
-        <div class="occasion-card" data-nav="gallery" data-filter="milestone" role="button" tabindex="0">
-          <div class="occasion-photo"><img src="images/topper-1.jpg" width="480" height="640" loading="lazy" decoding="async"
-               alt="Green-and-cream layer cake with a Brazil flag, soccer-ball toppers and a blue and gold '15 Anos' topper for a quinceañera"></div>
+        <div class="occasion-card" data-nav="gallery" data-filter="milestones" role="button" tabindex="0">
+          <div class="photo-frame"><img src="images/gallery-15-anos-soccer.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Quinceañera cake with Brazil flag and soccer-ball toppers and a blue and gold &#39;15 Anos&#39; topper"></div>
           <div class="occasion-body"><h3>15 Anos &amp; Milestones</h3><p>Quinceañera, Sweet 16 &amp; more</p></div>
         </div>
-        <div class="occasion-card" data-nav="gallery" data-filter="first" role="button" tabindex="0">
-          <div class="occasion-photo"><img src="images/topper-4.jpg" width="480" height="640" loading="lazy" decoding="async"
-               alt="Two-tier white first-birthday cake with a '1' age topper featuring a sun, a rainbow and the name Lucca in blue"></div>
-          <div class="occasion-body"><h3>First Birthdays</h3><p>Sun, rainbow &amp; name sets</p></div>
+        <div class="occasion-card" data-nav="gallery" data-filter="baby" role="button" tabindex="0">
+          <div class="photo-frame"><img src="images/gallery-thomas-baby-shower.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="White baby-shower cake with a gold mirror &#39;Thomas&#39; name topper and fondant teddy bears"></div>
+          <div class="occasion-body"><h3>First Birthday &amp; Baby</h3><p>Baby showers &amp; first birthdays</p></div>
         </div>
-        <div class="occasion-card" data-nav="gallery" data-filter="kids" role="button" tabindex="0">
-          <div class="occasion-photo no-photo"><svg class="occasion-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="#fef5e8"/><rect x="16" y="30" width="24" height="12" rx="2" fill="#f5d89a" stroke="#c9a227" stroke-width="1.5"/><rect x="20" y="22" width="16" height="8" rx="2" fill="#f7e6e9" stroke="#c97b84" stroke-width="1.5"/><rect x="27" y="14" width="2" height="8" fill="#c9a227"/><circle cx="28" cy="13" r="2" fill="#e8b4bc"/><circle cx="14" cy="18" r="1.5" fill="#c9a227"/><circle cx="42" cy="20" r="1.2" fill="#e8d48b"/></svg></div>
-          <div class="occasion-body"><h3>Kids&rsquo; Birthdays</h3><p>Name + age, party colors &amp; themes</p></div>
+        <div class="occasion-card" data-nav="gallery" data-filter="favors" role="button" tabindex="0">
+          <div class="photo-frame"><img src="images/gallery-safari-lion.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Brigadeiro with a small lion cardstock topper, with safari-animal toppers on more treats behind"></div>
+          <div class="occasion-body"><h3>Party Favors &amp; Treats</h3><p>Mini toppers for sweets</p></div>
         </div>
-        <div class="occasion-card wide-sm" data-nav="gallery" data-filter="wedding" role="button" tabindex="0">
-          <div class="occasion-photo no-photo"><svg class="occasion-icon" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#f7e6e9"/><path d="M28 38c-6-4.5-12-8-12-14a6 6 0 0112-2 6 6 0 0112 2c0 6-6 9.5-12 14z" fill="#e8b4bc"/><circle cx="20" cy="16" r="1.5" fill="#c9a227"/><circle cx="38" cy="18" r="1.2" fill="#e8d48b"/></svg></div>
+        <div class="occasion-card" data-nav="gallery" data-filter="holidays" role="button" tabindex="0">
+          <div class="photo-frame"><img src="images/gallery-halloween-skull.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Red-to-black Halloween cake with a black glitter skull topper"></div>
+          <div class="occasion-body"><h3>Holidays</h3><p>Halloween &amp; seasonal</p></div>
+        </div>
+        <div class="occasion-card" data-nav="gallery" data-filter="weddings" role="button" tabindex="0">
+          <div class="photo-frame"><span class="frame-label">Design concept</span><div class="concept-art icon"><svg viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="#f7e6e9"/><path d="M28 38c-6-4.5-12-8-12-14a6 6 0 0112-2 6 6 0 0112 2c0 6-6 9.5-12 14z" fill="#e8b4bc"/><circle cx="20" cy="16" r="1.5" fill="#c9a227"/><circle cx="38" cy="18" r="1.2" fill="#e8d48b"/></svg></div></div>
           <div class="occasion-body"><h3>Weddings &amp; Events</h3><p>Couples &amp; anniversaries</p></div>
         </div>
       </div>
-      <p class="occasions-credit">Photos &mdash; Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p>
+      <p class="occasions-credit">Toppers by Little Craft Design · Cakes &amp; treats by <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> and <a href="https://www.instagram.com/dulzuradelamor/" target="_blank" rel="noopener">@dulzuradelamor</a></p>
     </div>
   </div>
 
@@ -840,191 +809,71 @@
     <div class="container">
       <h1>Gallery</h1>
       <div class="gold-line"></div>
-      <p>Real toppers we&rsquo;ve made for customers (cake photos courtesy of All Sweet Utah), plus clearly labeled sample designs. Every topper is custom-made.</p>
+      <p>Real toppers we&rsquo;ve made for customers, with credit to the bakers we partner with. Every topper is custom-made.</p>
     </div>
   </div>
   <div class="section" style="padding-top:2rem">
     <div class="container">
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="kids">Kids' Birthdays</button>
-        <button class="filter-btn" data-filter="milestone">Milestone &amp; Adult Birthdays</button>
-        <button class="filter-btn" data-filter="first">First Birthdays</button>
-        <button class="filter-btn" data-filter="character">Character &amp; Theme</button>
-        <button class="filter-btn" data-filter="cupcake">Cupcake &amp; Sweet Picks</button>
-        <button class="filter-btn" data-filter="wedding">Weddings &amp; Events</button>
+      <div class="filter-bar" role="group" aria-label="Filter gallery">
+        <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="filter-btn" data-filter="birthdays" aria-pressed="false">Birthdays (kids &amp; adults)</button>
+        <button type="button" class="filter-btn" data-filter="milestones" aria-pressed="false">15 Anos &amp; Milestones</button>
+        <button type="button" class="filter-btn" data-filter="baby" aria-pressed="false">First Birthday &amp; Baby</button>
+        <button type="button" class="filter-btn" data-filter="special" aria-pressed="false">Religious &amp; Special Occasions</button>
+        <button type="button" class="filter-btn" data-filter="holidays" aria-pressed="false">Holidays</button>
+        <button type="button" class="filter-btn" data-filter="favors" aria-pressed="false">Party Favors &amp; Treat Toppers</button>
+        <button type="button" class="filter-btn" data-filter="weddings" aria-pressed="false">Weddings</button>
       </div>
       <div class="gallery-grid" id="galleryGrid">
-
-        <div class="gallery-card" data-occasion="kids">
-          <div class="gallery-preview kids">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="150" height="170" viewBox="0 0 150 170">
-              <defs><linearGradient id="gk1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff9f0"/><stop offset="100%" stop-color="#f5d89a"/></linearGradient></defs>
-              <rect x="20" y="12" width="110" height="115" rx="14" fill="url(#gk1)" stroke="#c9a227" stroke-width="2.5"/>
-              <text x="75" y="55" text-anchor="middle" font-family="Georgia" font-size="22" font-weight="700" fill="#c9a227">LUCAS</text>
-              <text x="75" y="90" text-anchor="middle" font-family="Georgia" font-size="36" font-weight="700" fill="#a8841a">7</text>
-              <circle cx="40" cy="30" r="2" fill="#c9a227"/><circle cx="110" cy="35" r="1.5" fill="#e8d48b"/><circle cx="45" cy="100" r="1.2" fill="#c9a227"/>
-              <rect x="73" y="127" width="4" height="30" rx="1" fill="#c9a227"/>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">Kids' Birthday</span><h3>Name + Age Number</h3><p>Name + age, gold glitter</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="kids">
-          <div class="gallery-preview kids">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="150" height="170" viewBox="0 0 150 170">
-              <defs><linearGradient id="gk2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef5e8"/><stop offset="100%" stop-color="#e8c878"/></linearGradient></defs>
-              <circle cx="75" cy="70" r="55" fill="url(#gk2)" stroke="#c9a227" stroke-width="2.5"/>
-              <text x="75" y="60" text-anchor="middle" font-family="Georgia" font-size="16" font-weight="700" fill="#a8841a">SOFIA</text>
-              <text x="75" y="95" text-anchor="middle" font-family="Georgia" font-size="28" font-weight="700" fill="#c9a227">8</text>
-              <circle cx="40" cy="40" r="2" fill="#c9a227"/><circle cx="110" cy="45" r="1.5" fill="#e8d48b"/>
-              <rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">Kids' Birthday</span><h3>Round Name Topper</h3><p>Name + age, gold glitter</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="milestone">
-          <div class="gallery-preview milestone photo">
-            <img src="images/topper-1.jpg" width="480" height="640" loading="lazy" decoding="async"
-                 alt="Green-and-cream layer cake for a 15th birthday (quinceañera) with a Brazil flag, three soccer-ball toppers and a blue and gold '15 Anos' topper">
-          </div>
-          <div class="gallery-info"><span class="tag">15 Anos / Quinceañera</span><h3>15 Anos &ndash; Brazil Soccer Theme</h3><p>Brazil flag &amp; soccer-ball toppers with a blue-and-gold 15 Anos topper</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/p/DcBhGMAFuqp/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="milestone">
-          <div class="gallery-preview milestone">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="150" height="170" viewBox="0 0 150 170">
-              <defs><linearGradient id="gm2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f0d0d6"/></linearGradient></defs>
-              <rect x="18" y="15" width="114" height="110" rx="12" fill="url(#gm2)" stroke="#c9a227" stroke-width="2.5"/>
-              <text x="75" y="55" text-anchor="middle" font-family="Georgia" font-size="13" fill="#a85a64" font-style="italic">Sweet</text>
-              <text x="75" y="90" text-anchor="middle" font-family="Georgia" font-size="36" font-weight="700" fill="#c9a227">16</text>
-              <text x="75" y="110" text-anchor="middle" font-family="Georgia" font-size="11" fill="#a8841a">AVA</text>
-              <circle cx="35" cy="30" r="2" fill="#c9a227"/><circle cx="115" cy="100" r="1.5" fill="#e8d48b"/>
-              <rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">Milestone</span><h3>Sweet 16</h3><p>Name + age, gold glitter</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="first">
-          <div class="gallery-preview first photo">
-            <img src="images/topper-4.jpg" width="480" height="640" loading="lazy" decoding="async"
-                 alt="Two-tier white first-birthday cake with a '1' age topper featuring a sun, a rainbow and the name Lucca in blue">
-          </div>
-          <div class="gallery-info"><span class="tag">First Birthday</span><h3>Lucca&rsquo;s First Birthday</h3><p>&ldquo;1&rdquo; topper with sun, rainbow &amp; blue name on a two-tier cake</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/p/DSl-bvjDe_k/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="first">
-          <div class="gallery-preview first">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="140" height="170" viewBox="0 0 140 170">
-              <defs><linearGradient id="gf2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fffaf5"/><stop offset="100%" stop-color="#f5d0c8"/></linearGradient></defs>
-              <rect x="18" y="12" width="104" height="115" rx="16" fill="url(#gf2)" stroke="#c9a227" stroke-width="2.5"/>
-              <!-- teddy bear simple -->
-              <circle cx="55" cy="48" r="12" fill="#e8c8a0"/><circle cx="85" cy="48" r="12" fill="#e8c8a0"/>
-              <circle cx="70" cy="58" r="20" fill="#f0d4b0"/>
-              <circle cx="62" cy="55" r="2" fill="#3d2c2e"/><circle cx="78" cy="55" r="2" fill="#3d2c2e"/>
-              <ellipse cx="70" cy="65" rx="5" ry="3.5" fill="#d4a878"/>
-              <text x="70" y="105" text-anchor="middle" font-family="Georgia" font-size="14" font-weight="700" fill="#c9a227">1st</text>
-              <circle cx="35" cy="28" r="1.5" fill="#c9a227"/><circle cx="105" cy="90" r="1.2" fill="#e8d48b"/>
-              <rect x="68" y="127" width="4" height="30" rx="1" fill="#c9a227"/>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">First Birthday</span><h3>Teddy Bear Topper</h3><p>Soft pastel teddy, gold glitter edge</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="character">
-          <div class="gallery-preview character photo">
-            <img src="images/topper-3.jpg" width="360" height="640" loading="lazy" decoding="async" style="object-position: center 15%"
-                 alt="Lilac birthday cake with a customer-provided cartoon character topper, lollipop and ice-cream toppers and a purple 'Savannah' name topper">
-          </div>
-          <div class="gallery-info"><span class="tag">Character &amp; Theme</span><h3>Custom character theme (customer-provided)</h3><p>Character theme &ndash; Savannah: purple name topper on a lilac cake</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/reel/DYAhdtgRWRw/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="milestone">
-          <div class="gallery-preview milestone photo">
-            <img src="images/topper-2.jpg" width="480" height="640" loading="lazy" decoding="async"
-                 alt="Green, yellow and blue birthday cake with a Brazil flag topper, soccer-ball toppers and a blue and gold '31 Anos' age topper">
-          </div>
-          <div class="gallery-info"><span class="tag">Adult Birthday</span><h3>31 Anos &ndash; Brazil Soccer Theme</h3><p>Flag &amp; soccer-ball toppers with a blue-and-gold 31 Anos topper</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/p/DcBgPLuG25p/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="cupcake">
-          <div class="gallery-preview cupcake">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="140" height="160" viewBox="0 0 140 160">
-              <defs><linearGradient id="gcp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f8f0fa"/><stop offset="100%" stop-color="#d4b8e0"/></linearGradient></defs>
-              <circle cx="45" cy="50" r="28" fill="url(#gcp1)" stroke="#c9a227" stroke-width="1.5"/>
-              <text x="45" y="55" text-anchor="middle" font-family="Georgia" font-size="14" font-weight="700" fill="#c9a227">A</text>
-              <circle cx="95" cy="50" r="28" fill="url(#gcp1)" stroke="#c9a227" stroke-width="1.5"/>
-              <text x="95" y="55" text-anchor="middle" font-family="Georgia" font-size="14" font-weight="700" fill="#c9a227">5</text>
-              <circle cx="70" cy="100" r="28" fill="url(#gcp1)" stroke="#c9a227" stroke-width="1.5"/>
-              <circle cx="70" cy="100" r="6" fill="#e8d48b"/>
-              <circle cx="40" cy="35" r="1.2" fill="#c9a227"/><circle cx="105" cy="40" r="1" fill="#e8d48b"/>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">Cupcake Picks</span><h3>Matching Mini Picks</h3><p>Initial, age &amp; accent for sweets</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="cupcake">
-          <div class="gallery-preview cupcake">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="140" height="160" viewBox="0 0 140 160">
-              <defs><linearGradient id="gcp2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef5e8"/><stop offset="100%" stop-color="#f5d89a"/></linearGradient></defs>
-              <circle cx="40" cy="55" r="24" fill="url(#gcp2)" stroke="#c9a227" stroke-width="1.5"/>
-              <circle cx="40" cy="55" r="5" fill="#c9a227"/>
-              <circle cx="100" cy="55" r="24" fill="url(#gcp2)" stroke="#c9a227" stroke-width="1.5"/>
-              <text x="100" y="60" text-anchor="middle" font-family="Georgia" font-size="12" font-weight="700" fill="#a8841a">★</text>
-              <circle cx="70" cy="105" r="24" fill="url(#gcp2)" stroke="#c9a227" stroke-width="1.5"/>
-              <text x="70" y="110" text-anchor="middle" font-family="Georgia" font-size="11" font-weight="700" fill="#c9a227">♥</text>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">Cupcake Picks</span><h3>Glitter Accent Set</h3><p>Small picks for cupcakes &amp; sweets</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="wedding">
-          <div class="gallery-preview wedding">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="150" height="170" viewBox="0 0 150 170">
-              <defs><linearGradient id="gw1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdf6f8"/><stop offset="100%" stop-color="#e8b4bc"/></linearGradient></defs>
-              <ellipse cx="75" cy="70" rx="55" ry="58" fill="url(#gw1)" stroke="#c9a227" stroke-width="2.5"/>
-              <circle cx="58" cy="55" r="16" fill="#f5d0c8"/><circle cx="92" cy="55" r="16" fill="#f0c8c0"/>
-              <ellipse cx="58" cy="52" rx="9" ry="10" fill="#e8a898"/><ellipse cx="92" cy="52" rx="9" ry="10" fill="#e0a090"/>
-              <text x="75" y="105" text-anchor="middle" font-family="Georgia" font-size="11" fill="#a85a64" font-style="italic">Mr &amp; Mrs</text>
-              <circle cx="40" cy="40" r="1.5" fill="#c9a227"/><circle cx="110" cy="45" r="1.2" fill="#e8d48b"/>
-              <rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">Weddings &amp; Events</span><h3>Couple Photo Topper</h3><p>Photo edit on glitter cardstock</p></div>
-        </div>
-
-        <div class="gallery-card" data-occasion="wedding">
-          <div class="gallery-preview wedding">
-            <div class="marble-bg"></div>
-            <span class="sample-label">Sample design</span>
-            <svg width="140" height="170" viewBox="0 0 140 170">
-              <defs><linearGradient id="gw2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f0d0d6"/></linearGradient></defs>
-              <circle cx="70" cy="70" r="52" fill="url(#gw2)" stroke="#c9a227" stroke-width="2.5"/>
-              <text x="70" y="60" text-anchor="middle" font-family="Georgia" font-size="13" fill="#a85a64" font-style="italic">Happy</text>
-              <text x="70" y="85" text-anchor="middle" font-family="Georgia" font-size="16" font-weight="700" fill="#c9a227">Anniversary</text>
-              <circle cx="40" cy="40" r="1.5" fill="#c9a227"/><circle cx="100" cy="95" r="1.2" fill="#e8d48b"/>
-              <rect x="68" y="122" width="4" height="30" rx="1" fill="#c9a227"/>
-            </svg>
-          </div>
-          <div class="gallery-info"><span class="tag">Weddings &amp; Events</span><h3>Party / Anniversary</h3><p>Custom lettering, gold glitter</p></div>
-        </div>
-
+        <figure class="gallery-card" data-tags="birthdays milestones">
+          <div class="photo-frame"><img src="images/gallery-15-anos-soccer.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Green-and-cream quinceañera cake with a Brazil flag, three soccer-ball toppers and a blue and gold &#39;15 Anos&#39; topper"></div>
+          <figcaption class="photo-caption"><h3>15 Anos &ndash; Brazil Soccer Theme</h3><p class="theme">Quinceañera · flag &amp; soccer-ball toppers with a blue-and-gold 15 Anos topper</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design · <a href="https://www.instagram.com/allsweetutah/p/DcBhGMAFuqp/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="birthdays">
+          <div class="photo-frame"><img src="images/gallery-31-anos-soccer.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Green, yellow and blue adult birthday cake with a Brazil flag topper, soccer-ball toppers and a blue and gold &#39;31 Anos&#39; topper"></div>
+          <figcaption class="photo-caption"><h3>31 Anos &ndash; Brazil Soccer Theme</h3><p class="theme">Adult birthday · flag &amp; soccer-ball toppers with a blue-and-gold age topper</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design · <a href="https://www.instagram.com/allsweetutah/p/DcBgPLuG25p/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="birthdays baby milestones">
+          <div class="photo-frame"><img src="images/gallery-lucca-first-birthday.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Two-tier white first-birthday cake with a &#39;1&#39; age topper featuring a sun, a rainbow and the name Lucca in blue"></div>
+          <figcaption class="photo-caption"><h3>Lucca &ndash; First Birthday</h3><p class="theme">Rainbow &amp; sunshine · &ldquo;1&rdquo; age topper with blue name</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design · <a href="https://www.instagram.com/allsweetutah/p/DSl-bvjDe_k/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="baby">
+          <div class="photo-frame"><img src="images/gallery-thomas-baby-shower.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="White baby-shower cake with a gold mirror script &#39;Thomas&#39; name topper, fondant teddy bears and blue, cream and gold spheres"></div>
+          <figcaption class="photo-caption"><h3>Thomas &ndash; Baby Shower</h3><p class="theme">Gold mirror name topper · teddy bear theme</p><p class="credit">Cake: <a href="https://www.instagram.com/dulzuradelamor/" target="_blank" rel="noopener">@dulzuradelamor</a> · Topper: Little Craft Design · <a href="https://www.instagram.com/littlecraftdesign/p/DQnM79XklB2/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="special birthdays milestones">
+          <div class="photo-frame"><img src="images/gallery-andre-baptism.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Two-tier white cake with a layered baptism topper showing Jesus with a boy in a suit, a temple silhouette and the name André"></div>
+          <figcaption class="photo-caption"><h3>André &ndash; Baptism &amp; 8th Birthday</h3><p class="theme">LDS baptism · layered topper with Jesus, temple silhouette &amp; name</p><p class="credit">Display cake &amp; topper: Little Craft Design · <a href="https://www.instagram.com/littlecraftdesign/p/DQpvrSCkn89/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="holidays">
+          <div class="photo-frame"><img src="images/gallery-halloween-skull.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Red-to-black ombré Halloween cake with a black glitter skull topper with white eyes and teeth and a red floral &#39;V&#39; on the forehead"></div>
+          <figcaption class="photo-caption"><h3>Halloween Skull Cake</h3><p class="theme">Black glitter skull with red floral &ldquo;V&rdquo; · red-to-black ombré cake</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design · <a href="https://www.instagram.com/littlecraftdesign/p/DQhYuuljbAI/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="favors">
+          <div class="photo-frame"><img src="images/gallery-safari-elephant.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Hand holding a brigadeiro with a small baby-elephant cardstock topper, with lion, elephant and giraffe toppers on more treats behind"></div>
+          <figcaption class="photo-caption"><h3>Safari Treat Toppers &ndash; Elephant</h3><p class="theme">Party favors · baby-animal toppers for brigadeiros &amp; sweets</p><p class="credit">Treats: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Toppers: Little Craft Design · <a href="https://www.instagram.com/allsweetutah/p/DcBfG2ym-6q/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="favors">
+          <div class="photo-frame"><img src="images/gallery-safari-lion.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Hand holding a brigadeiro with a small orange lion cardstock topper, with elephant, lion and giraffe toppers on more treats behind"></div>
+          <figcaption class="photo-caption"><h3>Safari Treat Toppers &ndash; Lion</h3><p class="theme">Party favors · lion, elephant &amp; giraffe treat toppers</p><p class="credit">Treats: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Toppers: Little Craft Design · <a href="https://www.instagram.com/allsweetutah/p/DcBfG2ym-6q/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="birthdays">
+          <div class="photo-frame"><img src="images/gallery-character-savannah.jpg" width="360" height="450" loading="lazy" decoding="async" alt="Lilac birthday cake with a customer-provided cartoon character topper, lollipop and ice-cream toppers and a purple &#39;Savannah&#39; name topper"></div>
+          <figcaption class="photo-caption"><h3>Custom character theme (customer-provided)</h3><p class="theme">Character theme &ndash; Savannah · purple name topper on a lilac cake</p><p class="credit">Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a> · Topper: Little Craft Design · <a href="https://www.instagram.com/allsweetutah/reel/DYAhdtgRWRw/" target="_blank" rel="noopener">View post</a></p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="weddings">
+          <div class="photo-frame"><span class="frame-label">Design concept</span><div class="concept-art" role="img" aria-label="Illustrated design concept: couple photo topper"><svg viewBox="0 0 150 170" aria-hidden="true"><defs><linearGradient id="gw1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdf6f8"/><stop offset="100%" stop-color="#e8b4bc"/></linearGradient></defs><ellipse cx="75" cy="70" rx="55" ry="58" fill="url(#gw1)" stroke="#c9a227" stroke-width="2.5"/><circle cx="58" cy="55" r="16" fill="#f5d0c8"/><circle cx="92" cy="55" r="16" fill="#f0c8c0"/><ellipse cx="58" cy="52" rx="9" ry="10" fill="#e8a898"/><ellipse cx="92" cy="52" rx="9" ry="10" fill="#e0a090"/><text x="75" y="105" text-anchor="middle" font-family="Georgia" font-size="11" fill="#a85a64" font-style="italic">Mr &amp; Mrs</text><circle cx="40" cy="40" r="1.5" fill="#c9a227"/><circle cx="110" cy="45" r="1.2" fill="#e8d48b"/><rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/></svg></div></div>
+          <figcaption class="photo-caption"><h3>Couple Photo Topper</h3><p class="theme">Weddings &amp; engagements · photo edit with &ldquo;Mr &amp; Mrs&rdquo; lettering</p><p class="credit">Design concept illustration · no real wedding photos yet</p></figcaption>
+        </figure>
+        <figure class="gallery-card" data-tags="weddings">
+          <div class="photo-frame"><span class="frame-label">Design concept</span><div class="concept-art" role="img" aria-label="Illustrated design concept: anniversary topper"><svg viewBox="0 0 140 170" aria-hidden="true"><defs><linearGradient id="gw2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f0d0d6"/></linearGradient></defs><circle cx="70" cy="70" r="52" fill="url(#gw2)" stroke="#c9a227" stroke-width="2.5"/><text x="70" y="60" text-anchor="middle" font-family="Georgia" font-size="13" fill="#a85a64" font-style="italic">Happy</text><text x="70" y="85" text-anchor="middle" font-family="Georgia" font-size="16" font-weight="700" fill="#c9a227">Anniversary</text><circle cx="40" cy="40" r="1.5" fill="#c9a227"/><circle cx="100" cy="95" r="1.2" fill="#e8d48b"/><rect x="68" y="122" width="4" height="30" rx="1" fill="#c9a227"/></svg></div></div>
+          <figcaption class="photo-caption"><h3>Anniversary Topper</h3><p class="theme">Anniversaries · custom script lettering in gold glitter</p><p class="credit">Design concept illustration · no real wedding photos yet</p></figcaption>
+        </figure>
+      </div>
+      <p class="gallery-empty" id="galleryEmpty" role="status">No photos in this category yet &mdash; we&rsquo;re adding new work all the time. <a href="#shop" data-nav="shop">Request a custom topper</a> or see more on <a href="https://www.instagram.com/littlecraftdesign/" target="_blank" rel="noopener">Instagram</a>.</p>
+      <div class="gallery-cta">
+        <p>See our latest work on Instagram <a href="https://www.instagram.com/littlecraftdesign/" target="_blank" rel="noopener">@littlecraftdesign</a></p>
+        <a href="#shop" class="btn btn-primary" data-nav="shop">Order a Custom Topper</a>
       </div>
     </div>
   </div>
@@ -1106,13 +955,10 @@
       <div class="shop-grid" id="shopGrid">
 
         <article class="shop-card" data-product="photo-birthday">
-          <div class="shop-card-img">
-            <div class="placeholder-art">
-              <svg width="120" height="130" viewBox="0 0 150 170"><defs><linearGradient id="spb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff9f0"/><stop offset="100%" stop-color="#f5d89a"/></linearGradient></defs><rect x="20" y="12" width="110" height="115" rx="14" fill="url(#spb)" stroke="#c9a227" stroke-width="2.5"/><text x="75" y="55" text-anchor="middle" font-family="Georgia" font-size="18" font-weight="700" fill="#c9a227">PHOTO</text><text x="75" y="88" text-anchor="middle" font-family="Georgia" font-size="28" font-weight="700" fill="#a8841a">+</text><text x="75" y="112" text-anchor="middle" font-family="Georgia" font-size="12" fill="#a85a64">Name &amp; Age</text><rect x="73" y="127" width="4" height="30" rx="1" fill="#c9a227"/></svg>
-            </div>
-          </div>
+          <div class="photo-frame"><span class="frame-label">Design concept</span><div class="concept-art" role="img" aria-label="Illustrated design concept: photo topper with name and age"><svg viewBox="0 0 150 170" aria-hidden="true"><defs><linearGradient id="spb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff9f0"/><stop offset="100%" stop-color="#f5d89a"/></linearGradient></defs><rect x="20" y="12" width="110" height="115" rx="14" fill="url(#spb)" stroke="#c9a227" stroke-width="2.5"/><text x="75" y="55" text-anchor="middle" font-family="Georgia" font-size="18" font-weight="700" fill="#c9a227">PHOTO</text><text x="75" y="88" text-anchor="middle" font-family="Georgia" font-size="28" font-weight="700" fill="#a8841a">+</text><text x="75" y="112" text-anchor="middle" font-family="Georgia" font-size="12" fill="#a85a64">Name &amp; Age</text><rect x="73" y="127" width="4" height="30" rx="1" fill="#c9a227"/></svg></div></div>
           <div class="shop-card-body">
             <h3>Custom Photo Birthday</h3>
+            <p class="credit">Design concept illustration</p>
             <p class="shop-desc">Your favorite photo with name &amp; age on thick glossy glitter cardstock. Digital proof within 24 hours.</p>
             <div class="shop-price-from">From $24 <span>· Standard or Large</span></div>
             <div class="shop-field">
@@ -1137,11 +983,10 @@
         </article>
 
         <article class="shop-card" data-product="quince">
-          <div class="shop-card-img">
-            <img src="images/topper-1.jpg" width="480" height="640" loading="lazy" decoding="async" alt="Blue and gold '15 Anos' topper with Brazil flag and soccer-ball toppers on a green-and-cream quinceañera cake">
-          </div>
+          <div class="photo-frame"><img src="images/gallery-15-anos-soccer.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Blue and gold &#39;15 Anos&#39; topper with Brazil flag and soccer-ball toppers on a green-and-cream quinceañera cake"></div>
           <div class="shop-card-body">
             <h3>Quinceañera / 15 Anos</h3>
+            <p class="credit">Shown: 15 Anos soccer theme · Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a></p>
             <p class="shop-desc">Photo + name for Quinceañera, 15 Anos, Mis XV, or Sweet 15. English, Portuguese, or Spanish text.</p>
             <div class="shop-price-from">From $28 <span>· Standard, Large &amp; Premium</span></div>
             <div class="shop-field">
@@ -1167,11 +1012,10 @@
         </article>
 
         <article class="shop-card" data-product="first-birthday">
-          <div class="shop-card-img">
-            <img src="images/topper-4.jpg" width="480" height="640" loading="lazy" decoding="async" alt="Two-tier white first-birthday cake with a '1' age topper featuring a sun, a rainbow and the name Lucca">
-          </div>
+          <div class="photo-frame"><img src="images/gallery-lucca-first-birthday.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Two-tier white first-birthday cake with a &#39;1&#39; age topper featuring a sun, a rainbow and the name Lucca"></div>
           <div class="shop-card-body">
             <h3>First Birthday</h3>
+            <p class="credit">Shown: Lucca rainbow &amp; sunshine · Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a></p>
             <p class="shop-desc">Name + “ONE” / “1” designs (sun, rainbow, teddy, stars — original themes) or with baby’s photo.</p>
             <div class="shop-price-from">From $22 <span>· Standard or Large</span></div>
             <div class="shop-field">
@@ -1197,14 +1041,11 @@
         </article>
 
         <article class="shop-card" data-product="name-age">
-          <div class="shop-card-img">
-            <div class="placeholder-art">
-              <svg width="120" height="130" viewBox="0 0 150 170"><defs><linearGradient id="sna" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff9f0"/><stop offset="100%" stop-color="#f5d89a"/></linearGradient></defs><rect x="20" y="12" width="110" height="115" rx="14" fill="url(#sna)" stroke="#c9a227" stroke-width="2.5"/><text x="75" y="55" text-anchor="middle" font-family="Georgia" font-size="20" font-weight="700" fill="#c9a227">NAME</text><text x="75" y="95" text-anchor="middle" font-family="Georgia" font-size="36" font-weight="700" fill="#a8841a">5</text><rect x="73" y="127" width="4" height="30" rx="1" fill="#c9a227"/></svg>
-            </div>
-          </div>
+          <div class="photo-frame"><img src="images/gallery-thomas-baby-shower.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="White cake with a gold mirror script &#39;Thomas&#39; name topper and fondant teddy bears"></div>
           <div class="shop-card-body">
             <h3>Name &amp; Age</h3>
-            <p class="shop-desc">Simple sparkly name + age topper. Gold, silver, rose gold, pink, blue, or black glitter.</p>
+            <p class="credit">Shown: &ldquo;Thomas&rdquo; gold mirror name topper · Cake: <a href="https://www.instagram.com/dulzuradelamor/" target="_blank" rel="noopener">@dulzuradelamor</a></p>
+            <p class="shop-desc">Simple sparkly name + age topper. Gold, silver, rose gold, pink, blue, or black glitter. Ask us about a gold mirror finish like the one shown.</p>
             <div class="shop-price-from">From $14 <span>· Standard or Large</span></div>
             <div class="shop-field">
               <label for="size-name-age">Size</label>
@@ -1228,13 +1069,10 @@
         </article>
 
         <article class="shop-card" data-product="wedding">
-          <div class="shop-card-img">
-            <div class="placeholder-art" style="background:linear-gradient(145deg,#fdf6f8,#f0dce2)">
-              <svg width="120" height="130" viewBox="0 0 150 170"><defs><linearGradient id="swed" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdf6f8"/><stop offset="100%" stop-color="#e8b4bc"/></linearGradient></defs><ellipse cx="75" cy="70" rx="55" ry="58" fill="url(#swed)" stroke="#c9a227" stroke-width="2.5"/><text x="75" y="75" text-anchor="middle" font-family="Georgia" font-size="14" fill="#a85a64" font-style="italic">Mr &amp; Mrs</text><rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/></svg>
-            </div>
-          </div>
+          <div class="photo-frame"><span class="frame-label">Design concept</span><div class="concept-art" role="img" aria-label="Illustrated design concept: Mr and Mrs wedding topper"><svg viewBox="0 0 150 170" aria-hidden="true"><defs><linearGradient id="swed" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdf6f8"/><stop offset="100%" stop-color="#e8b4bc"/></linearGradient></defs><ellipse cx="75" cy="70" rx="55" ry="58" fill="url(#swed)" stroke="#c9a227" stroke-width="2.5"/><text x="75" y="75" text-anchor="middle" font-family="Georgia" font-size="14" fill="#a85a64" font-style="italic">Mr &amp; Mrs</text><rect x="73" y="125" width="4" height="30" rx="1" fill="#c9a227"/></svg></div></div>
           <div class="shop-card-body">
             <h3>Mr &amp; Mrs Photo Wedding</h3>
+            <p class="credit">Design concept illustration</p>
             <p class="shop-desc">Couple photo with names, date, or “Mr &amp; Mrs”. Perfect for weddings, engagements &amp; anniversaries.</p>
             <div class="shop-price-from">From $28 <span>· Standard, Large &amp; Premium</span></div>
             <div class="shop-field">
@@ -1260,11 +1098,10 @@
         </article>
 
         <article class="shop-card" data-product="soccer">
-          <div class="shop-card-img">
-            <img src="images/topper-2.jpg" width="480" height="640" loading="lazy" decoding="async" alt="Adult 31st birthday cake in green, yellow and blue with Brazil flag, soccer-ball toppers and a '31 Anos' topper">
-          </div>
+          <div class="photo-frame"><img src="images/gallery-31-anos-soccer.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Adult 31st birthday cake in green, yellow and blue with Brazil flag and soccer-ball toppers and a &#39;31 Anos&#39; topper"></div>
           <div class="shop-card-body">
             <h3>Soccer / Sports</h3>
+            <p class="credit">Shown: 31 Anos adult birthday · Cake: <a href="https://www.instagram.com/allsweetutah/" target="_blank" rel="noopener">All Sweet Utah</a></p>
             <p class="shop-desc">Name, age &amp; photo with a soccer (or other sport) theme in your team colors — for kids and adults. Original designs only — no team logos.</p>
             <div class="shop-price-from">From $24 <span>· Standard or Large</span></div>
             <div class="shop-field">
@@ -1571,9 +1408,13 @@ var BUSINESS_PHONE = '(385) 208-1587';
     e.preventDefault();
     var id = link.getAttribute('data-nav');
     navigate(id);
-    var filter = link.getAttribute('data-filter');
-    if (filter && id === 'gallery') {
-      setTimeout(function () { applyFilter(filter); }, 50);
+    if (id === 'gallery') applyFilter(link.getAttribute('data-filter') || 'all');
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.occasion-card[data-nav]')) {
+      e.preventDefault();
+      e.target.click();
     }
   });
 
@@ -1591,21 +1432,38 @@ var BUSINESS_PHONE = '(385) 208-1587';
     });
   }
 
+  function cardTags(card) {
+    return (card.getAttribute('data-tags') || '').split(/\s+/).filter(Boolean);
+  }
   function applyFilter(filter) {
+    filter = filter || 'all';
+    var shown = 0;
     document.querySelectorAll('.filter-btn').forEach(function (b) {
-      b.classList.toggle('active', b.getAttribute('data-filter') === filter);
+      var on = b.getAttribute('data-filter') === filter;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
     document.querySelectorAll('.gallery-card').forEach(function (card) {
-      var occ = card.getAttribute('data-occasion');
-      if (filter === 'all' || occ === filter) card.classList.remove('hidden');
-      else card.classList.add('hidden');
+      var match = filter === 'all' || cardTags(card).indexOf(filter) !== -1;
+      card.classList.toggle('hidden', !match);
+      if (match) shown++;
     });
+    var empty = document.getElementById('galleryEmpty');
+    if (empty) empty.classList.toggle('show', shown === 0);
   }
 
+  // Show how many photos each filter has
   document.querySelectorAll('.filter-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      applyFilter(btn.getAttribute('data-filter'));
+    var f = btn.getAttribute('data-filter');
+    var n = 0;
+    document.querySelectorAll('.gallery-card').forEach(function (card) {
+      if (f === 'all' || cardTags(card).indexOf(f) !== -1) n++;
     });
+    var c = document.createElement('span');
+    c.className = 'count';
+    c.textContent = '(' + n + ')';
+    btn.appendChild(c);
+    btn.addEventListener('click', function () { applyFilter(f); });
   });
 
   document.querySelectorAll('.faq-q').forEach(function (btn) {
