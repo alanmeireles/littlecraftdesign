@@ -126,29 +126,62 @@
   .btn-secondary:hover { background: var(--blush); color: var(--rose-deep); }
   .btn-sm { padding: 0.55rem 1.2rem; font-size: 0.85rem; }
 
-  .hero {
+  #page-home .hero {
     position: relative; overflow: hidden; padding: 4.5rem 0 3.5rem;
-    background:
-      radial-gradient(ellipse at 15% 20%, rgba(232, 180, 188, 0.5) 0%, transparent 48%),
-      radial-gradient(ellipse at 85% 75%, rgba(232, 212, 139, 0.38) 0%, transparent 48%),
-      linear-gradient(165deg, var(--ivory) 0%, var(--blush) 50%, var(--cream) 100%);
+    color: var(--white);
+    background-color: #2a1f21;
+    background-image: url("images/gallery-baby-shower-gold-script-cake.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
+  #page-home .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        105deg,
+        rgba(42, 31, 33, 0.9) 0%,
+        rgba(61, 44, 46, 0.78) 40%,
+        rgba(168, 90, 100, 0.42) 68%,
+        rgba(42, 31, 33, 0.55) 100%
+      ),
+      linear-gradient(180deg, rgba(42, 31, 33, 0.35) 0%, transparent 35%, rgba(42, 31, 33, 0.45) 100%);
+  }
+  #page-home .hero .container { position: relative; z-index: 1; }
+  #page-home .hero .glitter-dots { z-index: 1; }
+  #page-home .hero .glitter-dots span { background: var(--gold-light); opacity: 0.7; }
   .hero-grid {
     display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.75rem; align-items: center;
   }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 0.4rem;
-    background: var(--white); border: 1px solid var(--gold-light); color: var(--gold-dark);
+    background: rgba(255, 250, 247, 0.95); border: 1px solid var(--gold-light); color: var(--gold-dark);
     font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     padding: 0.35rem 0.85rem; border-radius: 50px; margin-bottom: 1.25rem; box-shadow: var(--shadow);
   }
-  .hero h1 {
+  #page-home .hero h1 {
     font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3rem);
-    font-weight: 600; line-height: 1.2; color: var(--text); margin-bottom: 1rem;
+    font-weight: 600; line-height: 1.2; color: var(--white); margin-bottom: 1rem;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
   }
-  .hero h1 em { font-style: italic; color: var(--rose-deep); }
-  .hero-lead { font-size: 1.1rem; color: var(--text-soft); margin-bottom: 2rem; max-width: 460px; }
+  #page-home .hero h1 em { font-style: italic; color: var(--gold-light); }
+  #page-home .hero .hero-lead {
+    font-size: 1.1rem; color: rgba(255, 250, 247, 0.9); margin-bottom: 2rem; max-width: 460px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.28);
+  }
   .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+  #page-home .hero .btn-secondary {
+    background: rgba(255, 250, 247, 0.12); color: var(--white);
+    border: 1.5px solid rgba(255, 250, 247, 0.75); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(6px);
+  }
+  #page-home .hero .btn-secondary:hover {
+    background: rgba(255, 250, 247, 0.22); color: var(--white); border-color: var(--gold-light);
+  }
   .hero-visual {
     position: relative; display: flex; justify-content: center; align-items: center; min-height: 380px;
   }
@@ -477,11 +510,24 @@
 
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
-    .hero-lead { margin-left: auto; margin-right: auto; }
+    #page-home .hero .hero-lead { margin-left: auto; margin-right: auto; }
     .hero-ctas { justify-content: center; }
-    .hero-visual { min-height: 300px; }
-    .hero-collage { width: min(100%, 340px); height: 340px; margin: 0 auto; }
+    .hero-visual { min-height: 280px; }
+    .hero-collage { width: min(100%, 340px); height: 320px; margin: 0 auto; }
     .hero-logo-chip { width: 64px; height: 64px; }
+    #page-home .hero {
+      background-position: center 28%;
+    }
+    #page-home .hero::before {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(42, 31, 33, 0.9) 0%,
+          rgba(61, 44, 46, 0.82) 42%,
+          rgba(61, 44, 46, 0.7) 70%,
+          rgba(42, 31, 33, 0.55) 100%
+        );
+    }
     .benefits-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
     .testimonials { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
@@ -503,12 +549,12 @@
     .addons-grid { grid-template-columns: 1fr; }
     .radio-group { flex-direction: column; }
     .section { padding: 3rem 0; }
-    .hero { padding: 3.25rem 0 2.75rem; }
-    .hero-collage { height: 300px; }
-    .hero-photo-main { width: 74%; height: 76%; }
-    .hero-photo-secondary { width: 48%; height: 48%; }
-    .hero-photo-accent { width: 44%; height: 36%; }
-    .hero-logo-chip { width: 56px; height: 56px; }
+    #page-home .hero { padding: 3.25rem 0 2.75rem; background-position: 62% center; }
+    .hero-collage { height: 280px; }
+    .hero-photo-main { width: 78%; height: 82%; top: 4%; left: 4%; }
+    .hero-photo-secondary,
+    .hero-photo-accent { display: none; }
+    .hero-logo-chip { width: 56px; height: 56px; bottom: 6%; left: 8%; }
   }
 
   .pt-note {
@@ -675,10 +721,10 @@
         <div class="hero-visual">
           <div class="hero-collage">
             <figure class="hero-photo hero-photo-main">
-              <img src="images/gallery-baby-shower-gold-script-cake.jpg" width="720" height="684" loading="eager" decoding="async" alt="White baby-shower cake with a gold mirror script name topper and fondant teddy bears">
+              <img src="images/gallery-acrylic-name-gold-mirror-monogram.jpg" width="536" height="648" loading="eager" decoding="async" alt="Gold mirror acrylic monogram name topper on a floral cake">
             </figure>
             <figure class="hero-photo hero-photo-secondary">
-              <img src="images/gallery-acrylic-name-gold-mirror-monogram.jpg" width="536" height="648" loading="eager" decoding="async" alt="Gold mirror acrylic monogram name topper">
+              <img src="images/gallery-halloween-skull-on-cake.jpg" width="800" height="1000" loading="eager" decoding="async" alt="Black glitter skull topper on a red and black ombre Halloween cake">
             </figure>
             <figure class="hero-photo hero-photo-accent">
               <img src="images/gallery-soccer-brazil-15-anos-cake.jpg" width="480" height="600" loading="eager" decoding="async" alt="Quinceañera cake with Brazil flag and soccer-ball toppers and a blue and gold 15 Anos topper">
