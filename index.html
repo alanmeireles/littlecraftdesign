@@ -1316,8 +1316,7 @@
         <div class="checkout-form-card">
           <h2>Personalization &amp; Contact</h2>
           <div class="photo-note">
-            <strong>Sending your photo:</strong> This site can’t upload files. After you place your order, text your photo(s) to
-            <a href="tel:+13852081587">(385) 208-1587</a> or email them to <a href="mailto:support@littlecraftdesign.com">support@littlecraftdesign.com</a>.
+            <strong>Sending your photo:</strong> This site can’t upload files. After you place your order, email your photo(s) to <a href="mailto:support@littlecraftdesign.com">support@littlecraftdesign.com</a>.
             Clear, well-lit photos with faces facing forward work best.
           </div>
           <form id="checkoutForm" novalidate>
@@ -1399,8 +1398,8 @@
     <div class="container">
       <div class="thank-you-box">
         <h2>Your order is on its way to us ✨</h2>
-        <p>We’ll send a digital proof within 24 hours (usually same day). Please text your photo(s) to <a href="tel:+13852081587">(385) 208-1587</a> or email them to <a href="mailto:support@littlecraftdesign.com">support@littlecraftdesign.com</a> if you haven’t already — clear, well-lit photos work best.</p>
-        <p>Questions? Call or text <a href="tel:+13852081587">(385) 208-1587</a> or email <a href="mailto:support@littlecraftdesign.com">support@littlecraftdesign.com</a>. Falamos português!</p>
+        <p>We’ll send a digital proof within 24 hours (usually same day). Please email your photo(s) to <a href="mailto:support@littlecraftdesign.com">support@littlecraftdesign.com</a> if you haven’t already — clear, well-lit photos work best.</p>
+        <p>Questions? Email <a href="mailto:support@littlecraftdesign.com">support@littlecraftdesign.com</a>. Falamos português!</p>
         <a href="#shop" class="btn btn-secondary" data-nav="shop" style="margin-top:0.5rem">Back to Shop</a>
       </div>
     </div>
@@ -1445,7 +1444,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Little Craft Design. All rights reserved.</span>
-      <span style="font-size:0.8rem;color:rgba(255,255,255,0.55)">American Fork, Utah · <a href="tel:+13852081587" style="color:inherit">(385) 208-1587</a> · <a href="mailto:support@littlecraftdesign.com" style="color:inherit">support@littlecraftdesign.com</a></span>
+      <span style="font-size:0.8rem;color:rgba(255,255,255,0.55)">American Fork, Utah · <a href="mailto:support@littlecraftdesign.com" style="color:inherit">support@littlecraftdesign.com</a></span>
     </div>
   </div>
 </footer>
@@ -1476,7 +1475,6 @@ var STRIPE_LINKS = {
 };
 var SHIPPING_FLAT = 5.95;
 var RUSH_FEE = 10;
-var BUSINESS_PHONE = '(385) 208-1587';
 
 (function () {
   var pages = ['home', 'gallery', 'how-it-works', 'shop', 'checkout', 'thank-you'];
@@ -1663,7 +1661,7 @@ var BUSINESS_PHONE = '(385) 208-1587';
     lines += '<div class="summary-line"><span>Subtotal (product + add-ons' + (t.rushOn ? ' + rush' : '') + ')</span><strong>' + money(t.subtotal) + '</strong></div>';
     lines += '<div class="summary-total"><span>Estimated total</span><span>' + money(t.total) + '</span></div>';
     lines += (STRIPE_LINKS[cart.linkKey]
-      ? '<p class="summary-hint">Online checkout covers the topper size. Add-ons, rush and shipping are confirmed by text or email with a follow-up payment link if needed. Local pickup is free in American Fork / Utah County; US shipping is $5.95 flat.</p>'
+      ? '<p class="summary-hint">Online checkout covers the topper size. Add-ons, rush and shipping are confirmed by email with a follow-up payment link if needed. Local pickup is free in American Fork / Utah County; US shipping is $5.95 flat.</p>'
       : '<p class="summary-hint">Online payment is coming soon. Submitting this form opens an email with your full order details to ' + ORDER_EMAIL + '; we&rsquo;ll reply with your proof and a payment link. Local pickup is free in American Fork / Utah County; US shipping is $5.95 flat.</p>');
     box.innerHTML = lines;
     updatePayButton();
@@ -1682,7 +1680,7 @@ var BUSINESS_PHONE = '(385) 208-1587';
     if (link) {
       payBtn.textContent = 'Pay securely with Stripe';
     } else {
-      payBtn.textContent = ORDER_EMAIL ? 'Send order request by email' : "Online payment coming soon — we'll text you a payment link";
+      payBtn.textContent = ORDER_EMAIL ? 'Send order request by email' : "Online payment coming soon — email us for a payment link";
     }
   }
 
@@ -1734,7 +1732,7 @@ var BUSINESS_PHONE = '(385) 208-1587';
     lines.push('Email: ' + (document.getElementById('custEmail').value || ''));
     lines.push('Phone: ' + (document.getElementById('custPhone').value || ''));
     lines.push('');
-    lines.push('Photo: Customer will text photos to ' + BUSINESS_PHONE + ' or email them to ' + ORDER_EMAIL + '.');
+    lines.push('Photo: Customer will email photos to ' + ORDER_EMAIL + '.');
     return lines.join('\n');
   }
 
@@ -1767,7 +1765,7 @@ var BUSINESS_PHONE = '(385) 208-1587';
         if (email) url += sep + 'prefilled_email=' + encodeURIComponent(email);
         url += (url.indexOf('?') >= 0 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(ref);
         window.open(url, '_blank', 'noopener');
-        showStatus('Stripe checkout opened in a new tab. After payment you\'ll return to our thank-you page. Don\'t forget to text your photos to ' + BUSINESS_PHONE + ' or email them to ' + ORDER_EMAIL + '.', 'ok');
+        showStatus('Stripe checkout opened in a new tab. After payment you\'ll return to our thank-you page. Don\'t forget to email your photos to ' + ORDER_EMAIL + '.', 'ok');
         return;
       }
 
@@ -1779,9 +1777,9 @@ var BUSINESS_PHONE = '(385) 208-1587';
           '?subject=' + encodeURIComponent(subject) +
           '&body=' + encodeURIComponent(body);
         window.location.href = mailto;
-        showStatus('Your order details opened in your email app — please press Send. If nothing opened, email your order to ' + ORDER_EMAIL + ' or text ' + BUSINESS_PHONE + '. We\'ll reply with your proof and a payment link. Remember to send your photos too.', 'info');
+        showStatus('Your order details opened in your email app — please press Send. If nothing opened, email your order to ' + ORDER_EMAIL + '. We\'ll reply with your proof and a payment link. Remember to send your photos too.', 'info');
       } else {
-        showStatus('Online payment coming soon — we\'ll text you a payment link at the phone you provided. Please text your order details and photos to ' + BUSINESS_PHONE + '. Order summary was copied to your clipboard when possible.', 'info');
+        showStatus('Online payment coming soon — please email your order details and photos to ' + ORDER_EMAIL + '. Order summary was copied to your clipboard when possible.', 'info');
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(body).catch(function () {});
         }
